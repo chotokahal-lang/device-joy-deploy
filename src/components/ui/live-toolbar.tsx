@@ -2,12 +2,14 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
-import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type, ZoomIn, ZoomOut, RotateCw, RotateCcw, RefreshCw, AlignLeft, AlignCenter, AlignRight } from "lucide-react";
+import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type, ZoomIn, ZoomOut, RotateCw, RotateCcw, RefreshCw, AlignLeft, AlignCenter, AlignRight, Undo2, Redo2 } from "lucide-react";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveToolbar() {
-  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, scales, rotations, setScale, setRotation, resetElement } = useLiveEditStore();
+  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future } = useLiveEditStore();
+  const scales = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.scale ?? 1])), [transforms]);
+  const rotations = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.rotation ?? 0])), [transforms]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { pathname } = useLocation();
   /** Draft lokal = tidak memaksa re-render dari store tiap ketukan → kursor stabil & mirror realtime ke store */
@@ -54,13 +56,21 @@ export function LiveToolbar() {
   }, [pathname, dismiss]);
 
   React.useEffect(() => {
-    if (!activeElementId) return;
+    if (!isEditMode) return;
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") dismiss();
+      if (activeElementId && e.key === "Escape") dismiss();
+      const meta = e.ctrlKey || e.metaKey;
+      if (meta && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        if (e.shiftKey) redo(); else undo();
+      } else if (meta && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        redo();
+      }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [activeElementId, dismiss]);
+  }, [isEditMode, activeElementId, dismiss, undo, redo]);
 
   React.useEffect(() => {
     if (!activeElementId || isImage) {
@@ -158,9 +168,9 @@ export function LiveToolbar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 16 }}
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
-              className="live-toolbar-panel relative z-[10002] w-full max-w-xl surface-elevated rounded-[2.5rem] border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.8)] overflow-hidden pointer-events-auto"
+              className="live-toolbar-panel relative z-[10002] w-full max-w-xl surface-elevated rounded-3xl sm:rounded-[2.5rem] border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.8)] overflow-hidden pointer-events-auto max-h-[90vh] flex flex-col"
             >
-              <div className="p-4 border-b border-white/5 bg-white/[0.02] flex flex-col gap-4">
+              <div className="p-3 sm:p-4 border-b border-white/5 bg-white/[0.02] flex flex-col gap-3 sm:gap-4">
                 <div className="flex items-center justify-between px-2">
                    <div className="flex items-center gap-2 text-primary">
                       <Type className="w-4 h-4" />
@@ -169,6 +179,22 @@ export function LiveToolbar() {
                       </span>
                    </div>
                     <div className="flex items-center gap-1">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); undo(); }}
+                        disabled={past.length === 0}
+                        className="live-toolbar-btn w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Undo (Ctrl+Z)"
+                      >
+                        <Undo2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); redo(); }}
+                        disabled={future.length === 0}
+                        className="live-toolbar-btn w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Redo (Ctrl+Shift+Z)"
+                      >
+                        <Redo2 className="w-4 h-4" />
+                      </button>
                       <button 
                         onClick={(e) => { e.stopPropagation(); dismiss(); }} 
                         className="live-toolbar-btn w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white transition-all active:scale-90"
@@ -214,7 +240,7 @@ export function LiveToolbar() {
                 )}
               </div>
 
-              <div className="p-8 min-h-[12rem] max-h-[60vh] overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
+              <div className="p-4 sm:p-8 min-h-[10rem] flex-1 overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
                 {isImage ? (
                   <div className="flex flex-col items-center justify-center gap-6 py-10">
                      <div className="w-48 h-48 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group bg-black/30 flex items-center justify-center">
@@ -248,7 +274,7 @@ export function LiveToolbar() {
                 )}
               </div>
 
-              <div className="p-6 bg-white/[0.02] border-t border-white/5 flex flex-col gap-3">
+              <div className="p-3 sm:p-6 bg-white/[0.02] border-t border-white/5 flex flex-col gap-2 sm:gap-3">
                  <div className="flex gap-3">
                     {!isImage && (
                        <button
