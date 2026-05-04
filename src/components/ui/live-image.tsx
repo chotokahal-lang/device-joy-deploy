@@ -93,15 +93,15 @@ export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: L
       ref={containerRef}
       id={id}
       className={`relative inline-block w-full h-full transition-shadow ${isEditMode ? "group cursor-pointer rounded-xl" : ""} ${
-        isActive ? "ring-2 ring-primary shadow-[0_0_20px_rgba(249,115,22,0.4)] z-[50]" : ""
-      } ${hasActiveElement && !isActive ? "opacity-20 grayscale pointer-events-none" : ""} ${dragging ? "cursor-grabbing" : ""}`}
+        isActive ? "ring-2 ring-primary shadow-[0_0_20px_rgba(249,115,22,0.4)] z-[50]" : isSelected ? "ring-2 ring-accent z-[40]" : ""
+      } ${hasActiveElement && !isActive && !isSelected ? "opacity-20 grayscale pointer-events-none" : ""} ${dragging ? "cursor-grabbing" : ""}`}
       style={containerStyle}
       onClick={(e) => {
         if (!isEditMode) return;
         e.preventDefault();
         e.stopPropagation();
         if (images[id] === undefined) setImage(id, currentSrc);
-        setActiveElementId(id);
+        if (e.shiftKey) toggleSelect(id); else setActiveElementId(id);
       }}
       onMouseDown={(e) => isEditMode && e.stopPropagation()}
     >
