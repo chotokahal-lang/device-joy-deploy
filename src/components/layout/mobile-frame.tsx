@@ -1,6 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AgentDebugger } from "@/components/agents/AgentDebugger";
+import { CornerDecor } from "@/components/layout/corner-decor";
 
 /**
  * MobileFrame
@@ -37,6 +38,7 @@ export function MobileFrame({ children }: { children: ReactNode }) {
       className="w-full font-sans relative flex flex-col"
       style={{ minHeight: "100dvh" }}
     >
+      <CornerDecor />
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
