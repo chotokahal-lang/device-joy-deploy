@@ -210,7 +210,7 @@ export default function UserDaftar() {
           transition={{ delay: 0.4 }}
           className="text-center text-[10px] text-muted-foreground/60 leading-relaxed px-4"
         >
-          <LiveText as="span" id="daftar-terms" defaultText="Dengan mendaftar, Anda menyetujui ketentuan penggunaan layanan ᨀᨘᨄᨚᨐᨀᨚ dan menjamin kebenaran data yang dimasukkan. Penyalahgunaan layanan dapat dikenai sanksi sesuai hukum yang berlaku." />
+          <LiveText as="span" id="daftar-terms" defaultText="Dengan mendaftar, Anda menyetujui ketentuan penggunaan layanan ᨀᨘᨅᨚᨐᨀᨚ dan menjamin kebenaran data yang dimasukkan. Penyalahgunaan layanan dapat dikenai sanksi sesuai hukum yang berlaku." />
         </motion.p>
       </div>
     </div>

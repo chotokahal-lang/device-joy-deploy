@@ -94,7 +94,7 @@ export default function Profile() {
               { label: "NRP", value: nrp },
               { label: "Pangkat / Jabatan", value: pangkat },
               { label: "Satker", value: satker },
-              { label: "Versi Aplikasi", value: "ᨀᨘᨄᨚᨐᨀᨚ v2026.1" },
+              { label: "Versi Aplikasi", value: "ᨀᨘᨅᨚᨐᨀᨚ v2026.1" },
             ].map((item, i) => (
               <div key={item.label} className={`px-4 py-3 flex items-center justify-between ${i > 0 ? "border-t border-white/5" : ""}`}>
                 <p className="eyebrow text-[10px]">{item.label}</p>
@@ -112,7 +112,7 @@ export default function Profile() {
           className="surface rounded-2xl p-3 flex items-center gap-3"
         >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <p className="text-xs text-muted-foreground flex-1"><LiveText as="span" id="profile-footer-desc" defaultText="ᨀᨘᨄᨚᨐᨀᨚ · RESMOB POLDA SULSEL · 2026" /></p>
+          <p className="text-xs text-muted-foreground flex-1"><LiveText as="span" id="profile-footer-desc" defaultText="ᨀᨘᨅᨚᨐᨀᨚ · RESMOB POLDA SULSEL · 2026" /></p>
           <span className="eyebrow text-primary/70 text-[9px]"><LiveText as="span" id="profile-footer-status" defaultText="AKTIF" /></span>
         </motion.div>
 

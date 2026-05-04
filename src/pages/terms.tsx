@@ -9,7 +9,7 @@ export default function TermsConditions() {
       <PageHeader
         eyebrow={<LiveText as="span" id="terms-eyebrow" defaultText="Dokumen Hukum" />}
         title={<LiveText as="span" id="terms-title" defaultText="Syarat & Ketentuan" />}
-        subtitle={<LiveText as="span" id="terms-subtitle" defaultText="Peraturan penggunaan sistem ᨀᨘᨄᨚᨐᨀᨚ." />}
+        subtitle={<LiveText as="span" id="terms-subtitle" defaultText="Peraturan penggunaan sistem ᨀᨘᨅᨚᨐᨀᨚ." />}
         back="/about"
       />
 
@@ -26,7 +26,7 @@ export default function TermsConditions() {
             <h2 className="display-font text-lg text-foreground"><LiveText id="terms-1-title" defaultText="Legalitas Penggunaan" /></h2>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <LiveText id="terms-1-desc" defaultText="Penggunaan aplikasi ᨀᨘᨄᨚᨐᨀᨚ diatur oleh hukum yang berlaku di wilayah hukum Republik Indonesia. Setiap penyalahgunaan data akan diproses sesuai hukum yang berlaku." />
+            <LiveText id="terms-1-desc" defaultText="Penggunaan aplikasi ᨀᨘᨅᨚᨐᨀᨚ diatur oleh hukum yang berlaku di wilayah hukum Republik Indonesia. Setiap penyalahgunaan data akan diproses sesuai hukum yang berlaku." />
           </p>
         </motion.div>
 

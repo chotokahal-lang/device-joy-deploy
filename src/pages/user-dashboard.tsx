@@ -192,7 +192,7 @@ export default function UserDashboard() {
             </span>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-black text-foreground uppercase tracking-tight"><LiveText as="span" id="testi-real-card-title" defaultText="Ulasan Tentang Aplikasi" /></p>
-              <p className="text-xs text-primary/70 mt-0.5 font-bold"><LiveText as="span" id="testi-real-card-desc" defaultText="Kesaksian Nyata Pengguna ᨀᨘᨄᨚᨐᨀᨚ" /></p>
+              <p className="text-xs text-primary/70 mt-0.5 font-bold"><LiveText as="span" id="testi-real-card-desc" defaultText="Kesaksian Nyata Pengguna ᨀᨘᨅᨚᨐᨀᨚ" /></p>
             </div>
             <ChevronRight className="w-4 h-4 text-primary" />
           </motion.div>
