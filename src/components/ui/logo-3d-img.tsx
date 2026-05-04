@@ -181,7 +181,84 @@ export function Logo3DImg({
         </div>
       </div>
 
-      {/* Institutional label — only md and above */}
+  // Top label sized proportionally to logo
+  const topLabelFontPx = Math.max(9, Math.round(px * 0.085));
+  const topLabelTracking = `${Math.max(2, Math.round(px * 0.012))}px`;
+  const topLabelWidth = Math.round(px * 0.92);
+
+  return (
+    <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
+      {/* Top institutional label — sized to logo */}
+      <motion.div
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+        className={`flex flex-col items-center select-none ${isEditMode ? "" : "pointer-events-none"}`}
+        style={{ width: topLabelWidth }}
+      >
+        <LiveText
+          as="p"
+          id="logo-top-title"
+          defaultText="RESMOB POLDA SULSEL"
+          className="font-black uppercase text-center text-foreground whitespace-nowrap"
+        />
+        <div
+          className="rounded-full bg-primary/60 mt-1.5"
+          style={{ width: Math.min(px * 0.55, 64), height: 2 }}
+        />
+      </motion.div>
+      {/* Image wrapper — relative container so glows center on the image */}
+      <div className="relative flex items-center justify-center" style={containerStyle}>
+        {/* Outer ambient glow */}
+        <div
+          className="absolute rounded-full bg-primary/20 pointer-events-none"
+          style={{ ...glowStyle, filter: "blur(56px)" }}
+        />
+        {/* Mid glow ring */}
+        <div
+          className="absolute rounded-full bg-primary/18 pointer-events-none"
+          style={{ ...midGlowStyle, filter: "blur(24px)" }}
+        />
+        {/* Floor reflection */}
+        <div
+          className="absolute rounded-full pointer-events-none opacity-40"
+          style={{ ...floorStyle, filter: "blur(18px)" }}
+        />
+        {/* Logo image */}
+        <div
+          id="main-logo"
+          className={`relative flex items-center justify-center ${isEditMode ? "group cursor-pointer" : ""} ${isActive ? "ring-2 ring-primary rounded-2xl pointer-events-auto" : ""} ${hasActiveElement && !isActive ? "opacity-30 pointer-events-none" : ""}`}
+          onClick={handleImageClick}
+          style={{ width: px, height: px, ...(isActive ? { position: "relative" as const, zIndex: 9999 } : {}) }}
+        >
+          <motion.img
+            src={currentSrc}
+            alt="KUBOYAKO"
+            draggable={false}
+            decoding="async"
+            loading="eager"
+            className={`relative object-contain select-none transition-all ${isEditMode && !hasActiveElement ? "group-hover:opacity-50 group-hover:blur-[2px]" : ""}`}
+            style={{
+              ...tiltStyle,
+              width: px,
+              height: px,
+              imageRendering: "auto",
+              backfaceVisibility: "hidden",
+              transformStyle: "preserve-3d",
+            }}
+            {...floatVariants}
+          />
+          {isEditMode && !isActive && !hasActiveElement && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-xl">
+                <ImagePlus className="w-5 h-5" />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bottom subtitle — only md and above */}
       {showLabel && (
         <motion.div
           initial={{ opacity: 0, y: 5 }}
