@@ -56,13 +56,21 @@ export function LiveToolbar() {
   }, [pathname, dismiss]);
 
   React.useEffect(() => {
-    if (!activeElementId) return;
+    if (!isEditMode) return;
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") dismiss();
+      if (activeElementId && e.key === "Escape") dismiss();
+      const meta = e.ctrlKey || e.metaKey;
+      if (meta && e.key.toLowerCase() === "z") {
+        e.preventDefault();
+        if (e.shiftKey) redo(); else undo();
+      } else if (meta && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        redo();
+      }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [activeElementId, dismiss]);
+  }, [isEditMode, activeElementId, dismiss, undo, redo]);
 
   React.useEffect(() => {
     if (!activeElementId || isImage) {
