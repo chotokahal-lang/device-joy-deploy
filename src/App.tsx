@@ -42,6 +42,7 @@ const FileManager = lazy(() => import("@/pages/file-manager"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy"));
 const TermsConditions = lazy(() => import("@/pages/terms"));
 
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LiveEditToggle } from "@/components/ui/live-edit-toggle";
 import { LiveToolbar } from "@/components/ui/live-toolbar";
 import { LiveText } from "@/components/ui/live-text";
@@ -232,7 +233,14 @@ function AppContent() {
         <Routes>
           {/* Full-screen pages (Bypass MobileFrame) */}
           <Route path="/presentasi" element={<Presentasi />} />
-          <Route path="/testimoni" element={<TestimoniPage />} />
+          <Route
+            path="/testimoni"
+            element={
+              <ErrorBoundary name="TestimoniPage">
+                <TestimoniPage />
+              </ErrorBoundary>
+            }
+          />
           <Route path="/agent-manager" element={<AgentManager />} />
           <Route path="/agent-autofix" element={<AgentAutoFixPage />} />
           <Route path="/file-manager" element={<FileManager />} />
