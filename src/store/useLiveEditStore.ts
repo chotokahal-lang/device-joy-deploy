@@ -17,9 +17,11 @@ interface Snapshot {
 
 interface LiveEditState extends Snapshot {
   isEditMode: boolean;
+  unlocked: boolean;
   activeElementId: string | null;
   past: Snapshot[];
   future: Snapshot[];
+  setUnlocked: (v: boolean) => void;
   setEditMode: (mode: boolean) => void;
   toggleEditMode: () => void;
   setText: (id: string, value: string) => void;
@@ -53,6 +55,7 @@ export const useLiveEditStore = create<LiveEditState>()(
 
       return {
         isEditMode: false,
+        unlocked: false,
         activeElementId: null,
         texts: {},
         images: {},
@@ -60,6 +63,7 @@ export const useLiveEditStore = create<LiveEditState>()(
         past: [],
         future: [],
 
+        setUnlocked: (v) => set({ unlocked: v }),
         setEditMode: (mode) => set({ isEditMode: mode, activeElementId: null }),
         toggleEditMode: () => set((s) => ({ isEditMode: !s.isEditMode, activeElementId: null })),
 
@@ -146,6 +150,7 @@ export const useLiveEditStore = create<LiveEditState>()(
       name: "kuboyako-live-edit-storage",
       partialize: (state) => ({
         isEditMode: state.isEditMode,
+        unlocked: state.unlocked,
         texts: state.texts,
         images: state.images,
         transforms: state.transforms,
