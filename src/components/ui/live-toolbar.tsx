@@ -171,6 +171,22 @@ export function LiveToolbar() {
                       </span>
                    </div>
                     <div className="flex items-center gap-1">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); undo(); }}
+                        disabled={past.length === 0}
+                        className="live-toolbar-btn w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Undo (Ctrl+Z)"
+                      >
+                        <Undo2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); redo(); }}
+                        disabled={future.length === 0}
+                        className="live-toolbar-btn w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                        title="Redo (Ctrl+Shift+Z)"
+                      >
+                        <Redo2 className="w-4 h-4" />
+                      </button>
                       <button 
                         onClick={(e) => { e.stopPropagation(); dismiss(); }} 
                         className="live-toolbar-btn w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center text-muted-foreground hover:text-white transition-all active:scale-90"
