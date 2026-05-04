@@ -307,6 +307,7 @@ export function LiveToolbar() {
           </div>
         )}
       </AnimatePresence>
+      <MultiSelectBar />
     </>
   );
 }
