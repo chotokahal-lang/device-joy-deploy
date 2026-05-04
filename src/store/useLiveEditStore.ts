@@ -55,6 +55,7 @@ export const useLiveEditStore = create<LiveEditState>()(
 
       return {
         isEditMode: false,
+        unlocked: false,
         activeElementId: null,
         texts: {},
         images: {},
@@ -62,6 +63,7 @@ export const useLiveEditStore = create<LiveEditState>()(
         past: [],
         future: [],
 
+        setUnlocked: (v) => set({ unlocked: v }),
         setEditMode: (mode) => set({ isEditMode: mode, activeElementId: null }),
         toggleEditMode: () => set((s) => ({ isEditMode: !s.isEditMode, activeElementId: null })),
 
