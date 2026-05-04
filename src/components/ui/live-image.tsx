@@ -9,36 +9,26 @@ interface LiveImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   defaultSrc: string;
 }
 
-export function LiveImage({ id, defaultSrc, className, alt, ...props }: LiveImageProps) {
-  const { isEditMode, images, setImage, activeElementId, setActiveElementId } = useLiveEditStore();
+export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: LiveImageProps) {
+  const { isEditMode, images, scales, rotations, setImage, activeElementId, setActiveElementId } = useLiveEditStore();
   
   const currentSrc = images[id] || defaultSrc;
+  const scale = scales[id] ?? 1;
+  const rotation = rotations[id] ?? 0;
   const isActive = isEditMode && activeElementId === id;
   const hasActiveElement = isEditMode && activeElementId !== null;
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (!isEditMode) return;
-    e.preventDefault();
-    e.stopPropagation();
-    setActiveElementId(id);
-  };
 
   return (
     <div 
       id={id}
-      className={`relative inline-block w-full h-full transition-all duration-300 ${isEditMode ? "group cursor-pointer rounded-xl overflow-hidden" : ""} ${
+      className={`relative inline-block w-full h-full transition-all duration-300 ${isEditMode ? "group cursor-pointer rounded-xl" : ""} ${
         isActive ? "ring-2 ring-primary shadow-[0_0_20px_rgba(249,115,22,0.4)] z-[50]" : ""
       } ${hasActiveElement && !isActive ? "opacity-20 grayscale pointer-events-none" : ""}`}
       onClick={(e) => {
         if (isEditMode) {
           e.preventDefault();
           e.stopPropagation();
-
-          // Sync current src to store if empty
-          if (images[id] === undefined) {
-             setImage(id, currentSrc);
-          }
-
+          if (images[id] === undefined) setImage(id, currentSrc);
           setActiveElementId(id);
         }
       }}
@@ -49,8 +39,9 @@ export function LiveImage({ id, defaultSrc, className, alt, ...props }: LiveImag
         src={currentSrc}
         alt={alt || "Image"}
         className={`transition-all duration-300 w-full h-full object-contain ${className || ""} ${
-          isEditMode && !hasActiveElement ? "group-hover:opacity-50 group-hover:blur-[2px] ring-2 ring-transparent group-hover:ring-primary/50 rounded-xl" : ""
+          isEditMode && !hasActiveElement ? "group-hover:opacity-80 ring-2 ring-transparent group-hover:ring-primary/50 rounded-xl" : ""
         }`}
+        style={{ ...style, transform: `scale(${scale}) rotate(${rotation}deg)`, transformOrigin: "center" }}
         {...props}
       />
       

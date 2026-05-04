@@ -16,17 +16,6 @@ export function LiveEditToggle() {
       setEditMode(false);
       return;
     }
-
-    const role = localStorage.getItem("kuboyako_role");
-    if (role !== "admin") {
-      toast({
-        variant: "destructive",
-        title: "Akses Dibatasi",
-        description: "Hanya Administrator yang dapat mengaktifkan Live Edit.",
-      });
-      return;
-    }
-
     setShowPasswordModal(true);
   };
 
