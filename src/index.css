@@ -1,0 +1,1519 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Surface (sedikit lebih terang untuk layar Android) ── */
+    --background: 24 45% 6%;
+    /* warm very dark brown */
+    --foreground: 30 18% 97%;
+    /* near-white warm */
+
+    --card: 22 38% 10%;
+    --card-foreground: 30 18% 97%;
+
+    --popover: 22 42% 9%;
+    --popover-foreground: 30 18% 97%;
+
+    /* ── Brand ── */
+    --primary: 22 100% 52%;
+    /* #FF7000 — sedikit lebih terang */
+    --primary-foreground: 24 60% 6%;
+    --primary-glow: 32 100% 58%;
+    /* #FFA030 */
+
+    --secondary: 18 100% 44%;
+    --secondary-foreground: 30 18% 98%;
+
+    --accent: 42 100% 58%;
+    /* #FFD030 */
+    --accent-foreground: 24 60% 6%;
+
+    --muted: 24 18% 16%;
+    --muted-foreground: 30 10% 68%;
+    /* lebih terang agar mudah dibaca */
+
+    --destructive: 0 82% 58%;
+    --destructive-foreground: 30 18% 98%;
+
+    --border: 24 22% 17%;
+    --input: 24 22% 13%;
+    --ring: 22 100% 52%;
+
+    --radius: 1.5rem;
+
+    /* ── Gradients ── */
+    --gradient-primary: linear-gradient(135deg, hsl(22 100% 50%) 0%, hsl(32 100% 58%) 50%, hsl(42 100% 62%) 100%);
+    --gradient-deep: linear-gradient(160deg, hsl(22 55% 11%) 0%, hsl(24 48% 7%) 55%, hsl(20 60% 5%) 100%);
+    --gradient-card: linear-gradient(155deg, hsl(24 38% 14% / 0.85) 0%, hsl(20 32% 8% / 0.90) 100%);
+    --gradient-mesh: radial-gradient(ellipse 80% 55% at 50% 0%, hsl(22 100% 32% / 0.40) 0%, transparent 70%),
+      radial-gradient(ellipse 55% 45% at 100% 100%, hsl(42 100% 50% / 0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 0% 80%, hsl(18 100% 36% / 0.20) 0%, transparent 60%);
+
+    /* ── Shadows ── */
+    --shadow-soft: 0 6px 20px -6px hsl(20 100% 4% / 0.55);
+    --shadow-elevated: 0 20px 44px -16px hsl(20 100% 4% / 0.65), 0 5px 12px -5px hsl(20 100% 4% / 0.45);
+    --shadow-glow: 0 18px 54px -12px hsl(22 100% 52% / 0.50);
+    --shadow-inset: inset 0 1px 0 hsl(30 100% 90% / 0.09), inset 0 -1px 0 hsl(20 100% 4% / 0.55);
+
+    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --sidebar-background: 24 45% 6%;
+    --sidebar-foreground: 30 18% 97%;
+    --sidebar-primary: 22 100% 52%;
+    --sidebar-primary-foreground: 24 60% 6%;
+    --sidebar-accent: 24 22% 14%;
+    --sidebar-accent-foreground: 30 18% 97%;
+    --sidebar-border: 24 22% 17%;
+    --sidebar-ring: 22 100% 52%;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* iOS smooth scroll */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* 100% Adaptive Base Font */
+    font-size: clamp(14px, 4vw, 16px);
+  }
+
+  body,
+  #root {
+    height: 100dvh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    background-image: var(--gradient-mesh), var(--gradient-deep);
+    background-attachment: fixed;
+    overflow: hidden;
+    /* Prevent accidental swipes on mobile */
+    overscroll-behavior: none;
+    /* 100% Accurate Touch Control */
+    touch-action: manipulation;
+    /* Safe Area Padding for All Mobile Models */
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    background-size: cover;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Global Layout Stability & Hardening */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    height: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Fix */
+    position: relative;
+    overscroll-behavior: none;
+    margin: 0;
+    padding: 0;
+    /* smoother font on Android */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Safe Area Support for all modern devices */
+  #root {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .surface, .surface-elevated, .surface-glass {
+    overflow: hidden !important;
+    position: relative;
+  }
+
+  /* Force text containment */
+  p, h1, h2, h3, h4, span, label {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .truncate {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  input, textarea, select {
+    max-width: 100% !important;
+    font-size: 16px !important; /* Prevent iOS zoom */
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.35);
+    color: hsl(var(--foreground));
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer components {
+  .surface {
+    background: var(--gradient-card);
+    border: 1px solid hsl(30 20% 96% / 0.07);
+    box-shadow: var(--shadow-soft), var(--shadow-inset);
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+  }
+
+  .surface-elevated {
+    background: var(--gradient-card);
+    border: 1px solid hsl(30 20% 96% / 0.09);
+    box-shadow: var(--shadow-elevated), var(--shadow-inset);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+
+  .surface-glass {
+    background: hsl(30 20% 96% / 0.05);
+    border: 1px solid hsl(30 20% 96% / 0.09);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+    box-shadow: var(--shadow-inset);
+  }
+
+  /* ── Performance: reduce blur on low-end / battery-saver ── */
+  @media (max-resolution: 1.5dppx) and (max-width: 430px) {
+
+    .surface,
+    .surface-elevated,
+    .surface-glass {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .surface,
+    .surface-elevated,
+    .surface-glass {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  /* ── Tap target helper (apply manually with class .tap-target) ── */
+  .tap-target {
+    position: relative;
+  }
+
+  .tap-target::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ring-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .display-font {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-bold uppercase tracking-[0.28em] text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ── Presentasi Wide Screen Mode ── */
+  .presentasi-wide {
+    --presentasi-scale: 1;
+  }
+
+  @media (min-width: 768px) {
+    .presentasi-wide {
+      --presentasi-scale: 1.15;
+    }
+
+    .presentasi-wide .presentasi-content {
+      font-size: 1.15rem;
+      padding-top: 100px !important;
+    }
+
+    .presentasi-wide .presentasi-content h1 {
+      font-size: 3.5rem !important;
+    }
+
+    .presentasi-wide .presentasi-content h2 {
+      font-size: 2.8rem !important;
+    }
+
+    .presentasi-wide .presentasi-content h3 {
+      font-size: 1.8rem !important;
+    }
+
+    .presentasi-wide .presentasi-content p {
+      font-size: 1.2rem !important;
+      line-height: 1.6 !important;
+    }
+
+    .presentasi-wide .presentasi-content .surface-elevated,
+    .presentasi-wide .presentasi-content .surface {
+      padding: 2.5rem !important;
+      border-radius: 2rem !important;
+    }
+
+    .presentasi-wide .presentasi-content svg,
+    .presentasi-wide .presentasi-content img,
+    .presentasi-wide .presentasi-content .logo-3d-img {
+      transform: scale(1.15) !important;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .presentasi-wide {
+      --presentasi-scale: 1.5;
+    }
+
+    .presentasi-wide .presentasi-content {
+      font-size: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding-top: 40px !important;
+      padding-bottom: 80px !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100%;
+      gap: 3rem;
+    }
+
+    .presentasi-wide .presentasi-content h1 {
+      font-size: 6rem !important;
+      letter-spacing: -0.04em !important;
+    }
+
+    .presentasi-wide .presentasi-content h2 {
+      font-size: 4.8rem !important;
+      letter-spacing: -0.03em !important;
+    }
+
+    .presentasi-wide .presentasi-content h3 {
+      font-size: 3rem !important;
+    }
+
+    .presentasi-wide .presentasi-content p {
+      font-size: 1.6rem !important;
+    }
+
+    .presentasi-wide .presentasi-content .surface-elevated {
+      padding: 2.5rem !important;
+      border-radius: 3rem !important;
+    }
+
+    .presentasi-wide .presentasi-content .surface {
+      padding: 1.5rem !important;
+      border-radius: 2rem !important;
+    }
+
+    .presentasi-wide .presentasi-content svg:not(.lucide-chevron-right),
+    .presentasi-wide .presentasi-content img,
+    .presentasi-wide .presentasi-content .logo-3d-img {
+      transform: scale(1.4) !important;
+      margin-bottom: 1.5rem;
+    }
+
+    .presentasi-wide .presentasi-content .aspect-square {
+      aspect-ratio: auto !important;
+      min-height: 200px;
+    }
+
+    .presentasi-wide .presentasi-content .truncate {
+      overflow: visible !important;
+      white-space: normal !important;
+      text-overflow: clip !important;
+    }
+  }
+
+  /* ── Mobile/Frame Mode (HP Mode) 100% Adaptation ── */
+  .presentasi-mobile {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .presentasi-mobile .presentasi-content {
+    font-size: 16px !important;
+    padding-top: 50px !important;
+    padding-bottom: 30px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+
+  /* Slide content wrapper inside mobile frame */
+  .presentasi-mobile .presentasi-slide-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .presentasi-mobile .surface-elevated {
+    padding: 12px !important;
+    border-radius: 16px !important;
+    border: 1px solid hsl(30 20% 96% / 0.12) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .presentasi-mobile .surface {
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+    border: 1px solid hsl(30 20% 96% / 0.1) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .presentasi-mobile .display-font {
+    letter-spacing: -0.02em !important;
+    font-weight: 700 !important;
+  }
+
+  /* Typography scaling for mobile frame - Base 16px */
+  .presentasi-mobile h1 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .presentasi-mobile h2 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .presentasi-mobile h3 {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .presentasi-mobile p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .presentasi-mobile .eyebrow {
+    font-size: 10px !important;
+    letter-spacing: 0.15em !important;
+  }
+
+  /* Grid layouts for mobile */
+  .presentasi-mobile .grid {
+    gap: 8px !important;
+  }
+
+  .presentasi-mobile .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .presentasi-mobile .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .presentasi-mobile .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .presentasi-mobile .grid>* {
+    min-width: 0 !important;
+  }
+
+  /* Aspect ratio items in mobile */
+  .presentasi-mobile .aspect-square {
+    aspect-ratio: 1 !important;
+  }
+
+  /* Space utilities for mobile */
+  .presentasi-mobile .space-y-1>*+* {
+    margin-top: 4px !important;
+  }
+
+  .presentasi-mobile .space-y-2>*+* {
+    margin-top: 8px !important;
+  }
+
+  .presentasi-mobile .space-y-3>*+* {
+    margin-top: 12px !important;
+  }
+
+  .presentasi-mobile .space-y-4>*+* {
+    margin-top: 16px !important;
+  }
+
+  /* Gap utilities */
+  .presentasi-mobile .gap-2 {
+    gap: 8px !important;
+  }
+
+  .presentasi-mobile .gap-3 {
+    gap: 12px !important;
+  }
+
+  .presentasi-mobile .gap-4 {
+    gap: 16px !important;
+  }
+
+  /* Scrollbar Styling */
+  .presentasi-mobile .presentasi-content::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  .presentasi-mobile .presentasi-content::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.4) !important;
+    border-radius: 4px !important;
+  }
+
+  /* Responsive adjustments for very small screens */
+  @media (max-height: 700px) {
+    .presentasi-mobile .presentasi-content {
+      padding-top: 45px !important;
+      padding-bottom: 25px !important;
+    }
+
+    .presentasi-mobile h1 {
+      font-size: 22px !important;
+    }
+
+    .presentasi-mobile h2 {
+      font-size: 18px !important;
+    }
+
+    .presentasi-mobile .surface-elevated {
+      padding: 10px !important;
+    }
+  }
+
+  /* Fix for scaled frame visibility */
+  .presentasi-mobile {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 25px 50px -12px rgba(0, 0, 0, 0.8),
+      0 0 100px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Ensure content is visible and scrollable */
+  .presentasi-mobile .presentasi-content>* {
+    max-width: 100% !important;
+  }
+
+  /* Truncate text handling */
+  .presentasi-mobile .truncate {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Ensure icons scale properly */
+  .presentasi-mobile svg {
+    flex-shrink: 0 !important;
+  }
+
+  .background-animate {
+    background-size: 200% 200%;
+    animation: background-move 4s linear infinite;
+  }
+
+  @keyframes background-move {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 30px -5px hsl(var(--primary) / 0.4);
+  }
+
+  /* --- Realistic Phone Frame --- */
+  .phone-frame-desktop {
+    box-shadow:
+      0 0 0 2px rgba(255, 255, 255, 0.1),
+      0 0 120px rgba(0, 0, 0, 0.95),
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .phone-reflection {
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.03) 100%);
+  }
+
+  .dynamic-island {
+    background: #000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ── Live Edit Focus Mode ── */
+/* When body has this class, all links and buttons are disabled */
+body.live-edit-focus a,
+body.live-edit-focus button {
+  pointer-events: none !important;
+}
+
+/* Teks live edit di dalam button/tautan tetap bisa diklik */
+body.live-edit-focus a .live-text-target,
+body.live-edit-focus button .live-text-target,
+body.live-edit-focus [data-live-text] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* But let active editable elements remain interactive */
+body.live-edit-focus [contenteditable="true"] {
+  pointer-events: auto !important;
+}
+
+/* Toolbar and floating buttons stay interactive (z-index >= 10001) */
+body.live-edit-focus .live-toolbar-btn {
+  pointer-events: auto !important;
+}
+
+/* Panel editor + kontrol */
+body.live-edit-focus .live-toolbar-panel,
+body.live-edit-focus .live-edit-toggle-wrap {
+  pointer-events: auto !important;
+}
+
+/* Scroll area editor: scrollbar tipis saat panjang */
+.live-toolbar-editor-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.35) transparent;
+}
+
+.live-toolbar-editor-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+/* Presentation Phone Mode Hardening */
+.presentation-phone-mode {
+  font-size: 14px; /* Base scaling for phone mode */
+}
+
+.presentation-phone-mode .presentasi-slide-content {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  padding-top: 4rem !important;
+  padding-bottom: 2rem !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.presentation-phone-mode h2 {
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1rem !important;
+}
+
+.presentation-phone-mode p {
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.presentation-phone-mode .surface-elevated {
+  padding: 1.25rem !important;
+  border-radius: 1.5rem !important;
+}
+
+.presentation-phone-mode .display-font {
+  letter-spacing: -0.02em !important;
+}
+
+.presentation-phone-mode .eyebrow {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+}
+
+.presentation-phone-mode img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Scrollbar hidden but functional */
+.presentation-phone-mode .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.presentation-phone-mode .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.live-toolbar-editor-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.35);
+  border-radius: 9999px;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE SYSTEM - 100% Accurate Desktop & Mobile Support
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Layout Mode Classes (set by MobileFrame component) ── */
+
+/* Mobile Native Mode - Full viewport, no frame */
+body.layout-mobile-native {
+  --layout-mode: mobile;
+  --content-max-width: 100%;
+  --content-padding-x: 1rem;
+  --header-padding-top: max(3rem, calc(env(safe-area-inset-top, 0px) + 1.25rem));
+}
+
+/* Tablet Mode - Full width with adjusted spacing */
+body.layout-tablet {
+  --layout-mode: tablet;
+  --content-max-width: 100%;
+  --content-padding-x: 1.5rem;
+  --header-padding-top: max(2.5rem, calc(env(safe-area-inset-top, 0px) + 1rem));
+}
+
+/* Desktop Phone Frame Mode - Centered phone simulation */
+body.layout-desktop-phone,
+body.layout-desktop-wide {
+  --layout-mode: desktop;
+  --content-max-width: 430px;
+  --content-padding-x: 1.5rem;
+  --header-padding-top: 3rem;
+}
+
+/* ── Responsive Container Utilities ── */
+.responsive-container {
+  width: 100%;
+  max-width: var(--content-max-width, 100%);
+  padding-left: var(--content-padding-x, 1rem);
+  padding-right: var(--content-padding-x, 1rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Responsive Grid System ── */
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .responsive-grid {
+    gap: 1.25rem;
+  }
+  .responsive-grid.cols-sm-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    gap: 1.5rem;
+  }
+  .responsive-grid.cols-md-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .responsive-grid.cols-md-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid.cols-lg-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .responsive-grid.cols-lg-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* ── Responsive Typography ── */
+.responsive-title {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.responsive-subtitle {
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  line-height: 1.5;
+}
+
+.responsive-body {
+  font-size: clamp(0.8125rem, 2.5vw, 0.9375rem);
+  line-height: 1.6;
+}
+
+/* ── Responsive Spacing ── */
+.responsive-section {
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.responsive-gap {
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+/* ── Touch Target Optimization ── */
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  button, 
+  [role="button"], 
+  a,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+  }
+  
+  /* Increase spacing between interactive elements */
+  .touch-spacing > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+/* ── Device-Specific Optimizations ── */
+
+/* iOS Safari Fixes */
+body.is-ios {
+  /* Fix for iOS bounce scroll */
+  overscroll-behavior: none;
+  
+  /* Fix for iOS input zoom */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Android Optimizations */
+body.is-android {
+  /* Smoother scrolling */
+  scroll-behavior: smooth;
+  
+  /* Better tap feedback */
+  -webkit-tap-highlight-color: hsl(var(--primary) / 0.1);
+}
+
+/* ── Orientation-Specific Styles ── */
+body.is-landscape {
+  /* Adjust header for landscape */
+  --header-padding-top: max(1.5rem, env(safe-area-inset-top, 0px));
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Compact mode for landscape on small screens */
+  .compact-landscape {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  .compact-landscape-hide {
+    display: none !important;
+  }
+}
+
+/* ── Responsive Card Components ── */
+.responsive-card {
+  padding: clamp(0.875rem, 3vw, 1.25rem);
+  border-radius: clamp(1rem, 4vw, 1.5rem);
+}
+
+.responsive-card-sm {
+  padding: clamp(0.625rem, 2vw, 1rem);
+  border-radius: clamp(0.75rem, 3vw, 1.25rem);
+}
+
+.responsive-card-lg {
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: clamp(1.25rem, 5vw, 2rem);
+}
+
+/* ── Responsive Icon Sizing ── */
+.responsive-icon-sm {
+  width: clamp(1rem, 4vw, 1.25rem);
+  height: clamp(1rem, 4vw, 1.25rem);
+}
+
+.responsive-icon {
+  width: clamp(1.25rem, 5vw, 1.5rem);
+  height: clamp(1.25rem, 5vw, 1.5rem);
+}
+
+.responsive-icon-lg {
+  width: clamp(1.5rem, 6vw, 2rem);
+  height: clamp(1.5rem, 6vw, 2rem);
+}
+
+.responsive-icon-xl {
+  width: clamp(2rem, 8vw, 3rem);
+  height: clamp(2rem, 8vw, 3rem);
+}
+
+/* ── Responsive Button Sizing ── */
+.responsive-btn {
+  height: clamp(2.5rem, 10vw, 3.5rem);
+  padding-left: clamp(1rem, 4vw, 1.5rem);
+  padding-right: clamp(1rem, 4vw, 1.5rem);
+  font-size: clamp(0.8125rem, 3vw, 0.9375rem);
+  border-radius: clamp(0.75rem, 3vw, 1rem);
+}
+
+/* ── Safe Area Utilities ── */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+.safe-area-x {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+.safe-area-y {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-all {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* ── Viewport Height Utilities ── */
+.min-h-viewport {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+.h-viewport {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.max-h-viewport {
+  max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* ── Responsive Visibility ── */
+.show-mobile-only {
+  display: block;
+}
+.show-tablet-only,
+.show-desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .show-mobile-only {
+    display: none;
+  }
+  .show-tablet-only {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .show-tablet-only {
+    display: none;
+  }
+  .show-desktop-only {
+    display: block;
+  }
+}
+
+/* Hide on specific devices */
+.hide-mobile {
+  display: none;
+}
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block;
+  }
+}
+
+.hide-tablet {
+  display: block;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hide-tablet {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* ── Responsive Flex Utilities ── */
+.responsive-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-flex.sm-row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-flex.md-row {
+    flex-direction: row;
+  }
+}
+
+/* ── Performance Optimizations ── */
+
+/* Reduce animations on low-end devices */
+@media (max-resolution: 1.5dppx) and (max-width: 430px) {
+  .performance-optimize {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── High DPI / Retina Display Optimizations ── */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .retina-border {
+    border-width: 0.5px;
+  }
+  
+  .retina-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* ── Print Styles ── */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .surface,
+  .surface-elevated,
+  .surface-glass {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   SAMSUNG DEVICE OPTIMIZATIONS - 100% Accurate Support
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Samsung One UI General Optimizations ── */
+body.is-samsung {
+  /* Samsung One UI system font stack */
+  font-family: 'SamsungOne', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Improve tap feedback for Samsung devices */
+  -webkit-tap-highlight-color: hsl(var(--primary) / 0.15);
+  
+  /* Samsung browser smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Samsung Browser Specific Fixes ── */
+body.is-samsung-browser {
+  /* Fix Samsung Browser viewport issues */
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  
+  /* Samsung Browser has different focus behavior */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 1px;
+  }
+  
+  /* Fix Samsung Browser input styling */
+  input,
+  textarea,
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.75rem;
+  }
+}
+
+/* ── Galaxy S Series (Standard Flagship Phones) ── */
+body.is-galaxy-s {
+  --samsung-safe-area-top: 0px;
+  --samsung-safe-area-bottom: 0px;
+  --samsung-nav-height: 48px;
+  
+  /* Adjust for curved edge displays */
+  --content-padding-x: max(1rem, env(safe-area-inset-left, 0px));
+}
+
+/* Galaxy S series landscape with gesture navigation */
+body.is-galaxy-s.is-landscape {
+  --samsung-nav-height: 0px;
+  padding-bottom: 0px;
+}
+
+/* ── Galaxy A Series (Mid-range Phones) ── */
+body.is-galaxy-a {
+  --samsung-safe-area-top: 0px;
+  --samsung-safe-area-bottom: 0px;
+  
+  /* Slightly larger touch targets for mid-range devices */
+  button,
+  [role="button"],
+  a {
+    min-height: 48px;
+  }
+  
+  /* Optimize performance for lower-end A series */
+  .surface,
+  .surface-elevated,
+  .surface-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* ── Galaxy Z Fold (Foldable - Dual Screen) ── */
+body.is-galaxy-fold {
+  /* Fold unfolded main screen (approximately 7.6") */
+  --samsung-fold-width: 2176px;
+  --samsung-fold-height: 1812px;
+  
+  /* Cover screen dimensions */
+  --samsung-cover-width: 904px;
+  --samsung-cover-height: 2316px;
+}
+
+/* Fold in tablet/unfolded mode - wider layout */
+body.is-galaxy-fold.is-landscape {
+  --content-max-width: 100%;
+  --content-padding-x: 2rem;
+  
+  /* Multi-column layout for fold */
+  .responsive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .responsive-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Fold in portrait/cover mode - phone-like layout */
+body.is-galaxy-fold.is-portrait {
+  --content-padding-x: 1rem;
+  
+  .responsive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Fold specific: handle the crease/hinge area */
+@media (horizontal-viewport-segments: 2) {
+  body.is-galaxy-fold {
+    /* Split screen mode - avoid the hinge */
+    .fold-aware-container {
+      display: grid;
+      grid-template-columns: env(viewport-segment-width 0 0) 1fr;
+      column-gap: env(viewport-segment-left 1 0);
+    }
+  }
+}
+
+/* ── Galaxy Z Flip (Compact Foldable) ── */
+body.is-galaxy-flip {
+  /* Flip main screen (approximately 6.7") */
+  --samsung-flip-width: 1080px;
+  --samsung-flip-height: 2640px;
+  
+  /* Cover screen dimensions (small external display) */
+  --samsung-cover-width: 720px;
+  --samsung-cover-height: 748px;
+}
+
+/* Flip in clamshell/flex mode */
+@media (vertical-viewport-segments: 2) {
+  body.is-galaxy-flip {
+    /* Flex mode - content above, controls below */
+    .flip-flex-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .flip-flex-top {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .flip-flex-bottom {
+      height: env(viewport-segment-height 1 0);
+      padding: 1rem;
+    }
+  }
+}
+
+/* Flip standard portrait mode */
+body.is-galaxy-flip.is-portrait {
+  /* Taller aspect ratio adjustments */
+  .responsive-section {
+    padding-top: clamp(1rem, 3vh, 2rem);
+    padding-bottom: clamp(1rem, 3vh, 2rem);
+  }
+}
+
+/* ── Galaxy Tab Series (Tablets) ── */
+body.is-galaxy-tab {
+  /* Standard Galaxy Tab S dimensions vary */
+  --samsung-tab-nav-height: 48px;
+  
+  /* Tablet-optimized layout */
+  --content-max-width: 100%;
+  --content-padding-x: 2rem;
+  
+  /* Larger touch targets for tablet */
+  button,
+  [role="button"],
+  a {
+    min-height: 52px;
+  }
+  
+  /* Better typography for larger screen */
+  .responsive-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  
+  .responsive-body {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.7;
+  }
+}
+
+/* Galaxy Tab landscape mode */
+body.is-galaxy-tab.is-landscape {
+  .responsive-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Side-by-side layout option */
+  .tablet-split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Galaxy Tab portrait mode */
+body.is-galaxy-tab.is-portrait {
+  .responsive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* ── Galaxy Note Series (Large Phones with S-Pen) ── */
+body.is-galaxy-note {
+  /* Note series typically has larger displays */
+  --content-padding-x: 1.25rem;
+  
+  /* S-Pen hover state support */
+  .s-pen-target {
+    position: relative;
+  }
+  
+  .s-pen-target:hover::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px dashed hsl(var(--primary) / 0.3);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+/* ── Samsung Common Screen Sizes ── */
+
+/* Galaxy S24 Ultra, S23 Ultra, Note series (3088 x 1440) */
+@media (min-width: 412px) and (max-width: 430px) and (min-height: 915px) {
+  body.is-samsung {
+    .responsive-section {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+}
+
+/* Galaxy S24, S23, S22 (2340 x 1080) */
+@media (min-width: 360px) and (max-width: 400px) and (min-height: 780px) {
+  body.is-samsung {
+    .responsive-card {
+      padding: 1rem;
+    }
+  }
+}
+
+/* Galaxy Z Fold main screen (unfolded) */
+@media (min-width: 884px) and (max-width: 910px) {
+  body.is-galaxy-fold {
+    /* Optimize for fold's unique aspect ratio */
+    .responsive-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+/* Galaxy Z Fold cover screen */
+@media (min-width: 340px) and (max-width: 380px) and (min-height: 700px) {
+  body.is-galaxy-fold {
+    /* Narrower cover screen */
+    .responsive-card {
+      padding: 0.875rem;
+    }
+    
+    .responsive-title {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+/* Galaxy Tab S9 Ultra landscape (2960 x 1848) */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  body.is-galaxy-tab {
+    .responsive-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+}
+
+/* ── Samsung Edge Display Handling ── */
+body.is-samsung.is-landscape {
+  /* Extra padding for curved edge displays in landscape */
+  padding-left: max(0.5rem, env(safe-area-inset-left, 0px));
+  padding-right: max(0.5rem, env(safe-area-inset-right, 0px));
+}
+
+/* ── Samsung Dex Mode (Desktop Experience) ── */
+@media (min-width: 1024px) and (pointer: fine) {
+  body.is-samsung {
+    /* Samsung Dex mode - desktop-like experience */
+    .responsive-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    
+    /* Smaller touch targets acceptable with mouse */
+    button,
+    [role="button"],
+    a {
+      min-height: auto;
+    }
+    
+    /* Better hover states for Dex */
+    .surface:hover,
+    .surface-elevated:hover {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+/* ── Samsung One UI Dark Mode Compatibility ── */
+body.is-one-ui {
+  /* One UI uses different dark mode theming */
+  color-scheme: dark;
+  
+  /* Match One UI's darker blacks */
+  --background: 0 0% 5%;
+  
+  /* One UI accent color compatibility */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.4);
+  }
+}
+
+/* ── Samsung Accessibility: High Contrast Mode ── */
+@media (prefers-contrast: high) {
+  body.is-samsung {
+    .surface,
+    .surface-elevated {
+      border-width: 2px;
+      border-color: hsl(var(--foreground) / 0.2);
+    }
+    
+    button,
+    [role="button"] {
+      border: 2px solid currentColor;
+    }
+  }
+}
+
+/* ── Samsung Performance Optimizations ── */
+
+/* Galaxy A series and older S series - reduce effects */
+body.is-galaxy-a {
+  .surface,
+  .surface-elevated,
+  .surface-glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Reduce animation complexity */
+  * {
+    animation-duration: 0.15s !important;
+    transition-duration: 0.15s !important;
+  }
+}
+
+/* High-end Samsung devices - full effects */
+body.is-galaxy-s,
+body.is-galaxy-fold,
+body.is-galaxy-note {
+  .surface,
+  .surface-elevated,
+  .surface-glass {
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+}
