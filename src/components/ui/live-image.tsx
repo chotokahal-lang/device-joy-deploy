@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
-import { ImagePlus } from "lucide-react";
+import { ImagePlus, Move } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface LiveImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -10,41 +10,119 @@ interface LiveImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: LiveImageProps) {
-  const { isEditMode, images, scales, rotations, setImage, activeElementId, setActiveElementId } = useLiveEditStore();
-  
+  const { isEditMode, images, transforms, setImage, patchTransform, commit, activeElementId, setActiveElementId } = useLiveEditStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const currentSrc = images[id] || defaultSrc;
-  const scale = scales[id] ?? 1;
-  const rotation = rotations[id] ?? 0;
+  const t = transforms[id] ?? {};
+  const scale = t.scale ?? 1;
+  const rotation = t.rotation ?? 0;
+  const offsetX = t.offsetX ?? 0;
+  const offsetY = t.offsetY ?? 0;
+  const widthOverride = t.width;
+
   const isActive = isEditMode && activeElementId === id;
   const hasActiveElement = isEditMode && activeElementId !== null;
 
+  const [dragging, setDragging] = useState(false);
+
+  const startDrag = (e: React.PointerEvent) => {
+    if (!isActive) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const baseX = offsetX;
+    const baseY = offsetY;
+    setDragging(true);
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+
+    const move = (ev: PointerEvent) => {
+      patchTransform(id, { offsetX: baseX + (ev.clientX - startX), offsetY: baseY + (ev.clientY - startY) }, false);
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      setDragging(false);
+      commit();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
+  const startResize = (e: React.PointerEvent) => {
+    if (!isActive) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const rect = containerRef.current?.getBoundingClientRect();
+    const baseW = widthOverride ?? rect?.width ?? 100;
+    const startX = e.clientX;
+
+    const move = (ev: PointerEvent) => {
+      const dx = ev.clientX - startX;
+      const next = Math.max(40, baseW + dx);
+      patchTransform(id, { width: next }, false);
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      commit();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+
+  const containerStyle: React.CSSProperties = {
+    transform: `translate(${offsetX}px, ${offsetY}px)`,
+    width: widthOverride ? `${widthOverride}px` : undefined,
+  };
+
   return (
-    <div 
+    <div
+      ref={containerRef}
       id={id}
-      className={`relative inline-block w-full h-full transition-all duration-300 ${isEditMode ? "group cursor-pointer rounded-xl" : ""} ${
+      className={`relative inline-block w-full h-full transition-shadow ${isEditMode ? "group cursor-pointer rounded-xl" : ""} ${
         isActive ? "ring-2 ring-primary shadow-[0_0_20px_rgba(249,115,22,0.4)] z-[50]" : ""
-      } ${hasActiveElement && !isActive ? "opacity-20 grayscale pointer-events-none" : ""}`}
+      } ${hasActiveElement && !isActive ? "opacity-20 grayscale pointer-events-none" : ""} ${dragging ? "cursor-grabbing" : ""}`}
+      style={containerStyle}
       onClick={(e) => {
-        if (isEditMode) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (images[id] === undefined) setImage(id, currentSrc);
-          setActiveElementId(id);
-        }
+        if (!isEditMode) return;
+        e.preventDefault();
+        e.stopPropagation();
+        if (images[id] === undefined) setImage(id, currentSrc);
+        setActiveElementId(id);
       }}
       onMouseDown={(e) => isEditMode && e.stopPropagation()}
-      onMouseUp={(e) => isEditMode && e.stopPropagation()}
     >
       <img
         src={currentSrc}
         alt={alt || "Image"}
-        className={`transition-all duration-300 w-full h-full object-contain ${className || ""} ${
+        draggable={false}
+        className={`transition-transform duration-200 w-full h-full object-contain select-none ${className || ""} ${
           isEditMode && !hasActiveElement ? "group-hover:opacity-80 ring-2 ring-transparent group-hover:ring-primary/50 rounded-xl" : ""
         }`}
         style={{ ...style, transform: `scale(${scale}) rotate(${rotation}deg)`, transformOrigin: "center" }}
         {...props}
       />
-      
+
+      {isActive && (
+        <>
+          <button
+            type="button"
+            onPointerDown={startDrag}
+            className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-xl cursor-grab active:cursor-grabbing z-[60]"
+            title="Drag"
+          >
+            <Move className="w-4 h-4" />
+          </button>
+          <div
+            onPointerDown={startResize}
+            className="absolute -bottom-2 -right-2 w-5 h-5 rounded-sm bg-primary border-2 border-white cursor-nwse-resize z-[60]"
+            title="Resize"
+          />
+        </>
+      )}
+
       {isEditMode && !isActive && !hasActiveElement && (
         <motion.div
           initial={{ opacity: 0 }}
