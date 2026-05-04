@@ -174,7 +174,9 @@ export const useLiveEditStore = create<LiveEditState>()(
           set((s) => {
             const exists = s.selectedIds.includes(id);
             const selectedIds = exists ? s.selectedIds.filter((x) => x !== id) : [...s.selectedIds, id];
-            return { selectedIds, activeElementId: selectedIds[selectedIds.length - 1] ?? null };
+            // Multi-select mode: do not open editor modal; clear active so toolbar stays hidden
+            const activeElementId = selectedIds.length > 1 ? null : selectedIds[0] ?? null;
+            return { selectedIds, activeElementId };
           }),
 
         clearSelection: () => set({ selectedIds: [], activeElementId: null }),
