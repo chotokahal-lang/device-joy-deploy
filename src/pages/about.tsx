@@ -28,7 +28,7 @@ export default function About() {
     <div className="flex flex-col min-h-full pb-10">
       <PageHeader
         eyebrow={<LiveText as="span" id="about-eyebrow" defaultText="Tentang" />}
-        title={<LiveText as="span" id="about-title" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" />}
+        title={<LiveText as="span" id="about-title" defaultText="BOYAKO" />}
         subtitle={<LiveText as="span" id="about-subtitle" defaultText="" />}
         back="/profile"
       />
@@ -63,7 +63,7 @@ export default function About() {
         >
           <Logo3DImg size="xl" intensity="high" float />
           <div>
-            <h2 className="display-font text-2xl text-foreground"><LiveText as="span" id="about-brand" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" /></h2>
+            <h2 className="display-font text-2xl text-foreground"><LiveText as="span" id="about-brand" defaultText="BOYAKO" /></h2>
             <p className="eyebrow text-primary/80 mt-0.5"><LiveText as="span" id="about-version" defaultText="v2026.1 · RESMOB POLDA SULSEL" /></p>
             <p className="text-[10px] text-muted-foreground max-w-full mx-auto leading-relaxed mt-1">
               <LiveText as="span" id="about-unit" defaultText="UNIT V SUBDIT JATANRAS DIREKTORAT KRIMINAL UMUM POLDA SULSEL" />
@@ -76,7 +76,7 @@ export default function About() {
               <p className="text-[11px] text-muted-foreground leading-relaxed mt-0.5">
                 Berasal dari bahasa Makassar —{" "}
                 <b className="text-primary">BOYA</b> berarti <i>Cari</i>.{" "}
-                <b className="text-foreground">ᨀᨘᨅᨚᨐᨀᨚ</b> = Saya Carikan Untukmu.
+                <b className="text-foreground">BOYAKO</b> = Saya Carikan Untukmu.
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function About() {
             </Link>
           </div>
           <p className="eyebrow text-muted-foreground/40 text-[9px]">
-            <LiveText as="span" id="about-footer" defaultText="ᨀᨘᨅᨚᨐᨀᨚ · RESMOB POLDA SULSEL · 2026 · Hak Cipta Dilindungi" />
+            <LiveText as="span" id="about-footer" defaultText="BOYAKO · RESMOB POLDA SULSEL · 2026 · Hak Cipta Dilindungi" />
           </p>
         </motion.div>
 

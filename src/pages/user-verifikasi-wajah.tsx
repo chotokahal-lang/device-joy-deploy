@@ -362,7 +362,7 @@ export default function UserVerifikasiWajah() {
       <div className="px-6 pb-8 text-center relative z-10">
         <div className="flex items-center justify-center gap-2 eyebrow text-muted-foreground/50">
           <ShieldCheck className="w-3 h-3" />
-          <LiveText as="span" id="verify-footer-text" defaultText="Data biometrik tidak disimpan di server · ᨀᨘᨅᨚᨐᨀᨚ" />
+          <LiveText as="span" id="verify-footer-text" defaultText="Data biometrik tidak disimpan di server · BOYAKO" />
         </div>
       </div>
     </div>

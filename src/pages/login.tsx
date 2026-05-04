@@ -117,7 +117,7 @@ export default function Login() {
           </motion.button>
 
           <h1 className="display-font text-3xl text-foreground tracking-tight leading-tight text-center">
-            <LiveText as="span" id="login-brand" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" />
+            <LiveText as="span" id="login-brand" defaultText="BOYAKO" />
           </h1>
           <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-widest font-medium text-center">
             <LiveText as="span" id="login-tagline" defaultText="Terintegrasi SI SDM POLRI" />
@@ -127,7 +127,7 @@ export default function Login() {
 
       <footer className="px-6 py-6 text-center">
         <p className="eyebrow text-muted-foreground/60">
-          <LiveText as="span" id={`login-footer-${type}`} defaultText={isAdmin ? "Operator · ᨀᨘᨅᨚᨐᨀᨚ" : "Anggota Polri · ᨀᨘᨅᨚᨐᨀᨚ"} />
+          <LiveText as="span" id={`login-footer-${type}`} defaultText={isAdmin ? "Operator · BOYAKO" : "Anggota Polri · BOYAKO"} />
         </p>
       </footer>
     </div>

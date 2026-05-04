@@ -42,7 +42,7 @@ export default function Splash() {
           className="flex flex-col items-center gap-3"
         >
           <h1 className="display-font text-[clamp(2rem,8vw,2.5rem)] leading-[1.05]">
-            <LiveText as="span" id="splash-title" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" className="text-gradient" />
+            <LiveText as="span" id="splash-title" defaultText="BOYAKO" className="text-gradient" />
           </h1>
           <LiveText as="p" id="splash-subtitle" defaultText="Aplikasi Pencarian & Arsip Barang Bukti" className="text-sm text-muted-foreground max-w-[28ch] leading-relaxed" />
         </motion.div>
@@ -56,7 +56,7 @@ export default function Splash() {
         >
           <BookOpen className="w-4 h-4 text-accent shrink-0 mt-0.5" />
           <p className="text-[11px] text-muted-foreground leading-relaxed">
-            <LiveText as="span" id="splash-desc-1" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" className="font-bold text-foreground" /> — <LiveText as="span" id="splash-desc-2" defaultText="bahasa Makassar." />{" "}
+            <LiveText as="span" id="splash-desc-1" defaultText="BOYAKO" className="font-bold text-foreground" /> — <LiveText as="span" id="splash-desc-2" defaultText="bahasa Makassar." />{" "}
             <LiveText as="span" id="splash-desc-3" defaultText="Boya" className="font-bold text-primary" /> = <LiveText as="i" id="splash-desc-4" defaultText="Cari" />. <LiveText as="span" id="splash-desc-5" defaultText="Sistem pencarian dan Arsip barang bukti tindak pidana pencurian wilayah hukum RESMOB POLDA SULSEL." />
           </p>
         </motion.div>
