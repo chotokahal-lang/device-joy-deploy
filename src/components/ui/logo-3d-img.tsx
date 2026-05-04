@@ -16,12 +16,12 @@ interface Logo3DImgProps {
 
 /* px dimensions used as inline style so glow is always centered */
 const imgPx: Record<Size, number> = {
-  xs: 56,
-  sm: 88,
-  md: 120,
-  lg: 160,
-  xl: 200,
-  hero: 320,
+  xs: 80,
+  sm: 128,
+  md: 180,
+  lg: 240,
+  xl: 300,
+  hero: 460,
 };
 
 const glowScale: Record<Size, number> = {
