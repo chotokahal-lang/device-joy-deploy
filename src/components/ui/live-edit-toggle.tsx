@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Edit3, CheckCircle2, Wand2, Lock, Key } from "lucide-react";
+import { Edit3, CheckCircle2, Wand2, Lock, Key, Grid3x3, Cloud, CloudOff } from "lucide-react";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { useToast } from "@/hooks/use-toast";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveEditToggle() {
-  const { isEditMode, setEditMode, unlocked, setUnlocked } = useLiveEditStore();
+  const { isEditMode, setEditMode, unlocked, setUnlocked, snapEnabled, toggleSnap, cloudSyncEnabled, setCloudSync, selectedIds } = useLiveEditStore();
   const { toast } = useToast();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
