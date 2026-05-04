@@ -2,12 +2,14 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
-import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type, ZoomIn, ZoomOut, RotateCw, RotateCcw, RefreshCw, AlignLeft, AlignCenter, AlignRight } from "lucide-react";
+import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type, ZoomIn, ZoomOut, RotateCw, RotateCcw, RefreshCw, AlignLeft, AlignCenter, AlignRight, Undo2, Redo2 } from "lucide-react";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveToolbar() {
-  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, scales, rotations, setScale, setRotation, resetElement } = useLiveEditStore();
+  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future } = useLiveEditStore();
+  const scales = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.scale ?? 1])), [transforms]);
+  const rotations = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.rotation ?? 0])), [transforms]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { pathname } = useLocation();
   /** Draft lokal = tidak memaksa re-render dari store tiap ketukan → kursor stabil & mirror realtime ke store */
