@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
             <h2 className="display-font text-lg text-foreground"><LiveText id="priv-1-title" defaultText="Keamanan Data Prioritas" /></h2>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <LiveText id="priv-1-desc" defaultText="KUBOYAKO (Aplikasi RESMOB POLDA SULSEL) berkomitmen penuh untuk melindungi setiap data yang diinput ke dalam sistem. Data barang bukti, identitas pelapor, dan log aktivitas admin dikelola dengan standar keamanan enkripsi militer." />
+            <LiveText id="priv-1-desc" defaultText="ᨀᨘᨄᨚᨐᨀᨚ (Aplikasi RESMOB POLDA SULSEL) berkomitmen penuh untuk melindungi setiap data yang diinput ke dalam sistem. Data barang bukti, identitas pelapor, dan log aktivitas admin dikelola dengan standar keamanan enkripsi militer." />
           </p>
         </motion.div>
 

@@ -31,7 +31,7 @@ export default function NotFound() {
           <LiveText as="span" id="404-title" defaultText='Halaman <span class="text-gradient">Tidak Ada</span>' />
         </h1>
         <p className="text-sm text-muted-foreground max-w-[30ch] leading-relaxed mx-auto">
-          <LiveText as="span" id="404-desc" defaultText="Alamat yang Anda tuju tidak tersedia dalam sistem KUBOYAKO." />
+          <LiveText as="span" id="404-desc" defaultText="Alamat yang Anda tuju tidak tersedia dalam sistem ᨀᨘᨄᨚᨐᨀᨚ." />
         </p>
       </motion.div>
 
@@ -66,7 +66,7 @@ export default function NotFound() {
       </motion.div>
 
       <p className="mt-10 eyebrow text-muted-foreground/50">
-        <LiveText as="span" id="404-footer" defaultText="KUBOYAKO · RESMOB POLDA SULSEL" />
+        <LiveText as="span" id="404-footer" defaultText="ᨀᨘᨄᨚᨐᨀᨚ · RESMOB POLDA SULSEL" />
       </p>
     </div>
   );

@@ -171,7 +171,7 @@ export function Logo3DImg({
         >
           <motion.img
             src={currentSrc}
-            alt="KUBOYAKO"
+            alt="ᨀᨘᨄᨚᨐᨀᨚ"
             draggable={false}
             decoding="async"
             loading="eager"
