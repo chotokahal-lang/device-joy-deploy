@@ -7,7 +7,10 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Icon3D } from "@/components/ui/icon-3d";
 import { icons3d } from "@/assets/icons";
 import { LiveText } from "@/components/ui/live-text";
-import { validateLogin, addLog } from "@/lib/store";
+import { addLog } from "@/lib/store";
+import { supabase } from "@/integrations/supabase/client";
+
+export const nrpToEmail = (nrp: string) => `${nrp.trim().toLowerCase()}@kuboyako.local`;
 
 export default function Login() {
   const { type } = useParams();
@@ -19,35 +22,48 @@ export default function Login() {
   const isAdmin = type === "admin";
   const isPolri = type === "polri";
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      const user = validateLogin(credentials.username, credentials.password);
-      
-      if (user) {
-        const role = user.role;
-        localStorage.setItem("kuboyako_role", role);
-        localStorage.setItem("kuboyako_user_name", user.name);
-        localStorage.setItem("kuboyako_user_nrp", user.nrp);
-        
-        addLog(user.nrp, role, "LOGIN", "Berhasil masuk ke sistem");
-        
-        toast({
-          title: "Akses Diterima",
-          description: `Selamat datang, ${user.name}.`,
-        });
-        navigate(role === "admin" ? "/admin" : "/user");
-      } else {
-        addLog(credentials.username, "unknown", "LOGIN_FAILED", "Percobaan login gagal");
-        toast({
-          variant: "destructive",
-          title: "Akses Ditolak",
-          description: "NRP atau password salah.",
-        });
+    try {
+      const email = nrpToEmail(credentials.username);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: credentials.password,
+      });
+      if (error || !data.user) throw error ?? new Error("Login gagal");
+
+      const [{ data: profile }, { data: roles }] = await Promise.all([
+        supabase.from("profiles").select("name, nrp, unit").eq("user_id", data.user.id).maybeSingle(),
+        supabase.from("user_roles").select("role").eq("user_id", data.user.id),
+      ]);
+
+      const isAdminRole = (roles ?? []).some((r) => r.role === "admin");
+      const role = isAdminRole ? "admin" : "polri";
+
+      if (isAdmin && !isAdminRole) {
+        await supabase.auth.signOut();
+        throw new Error("Akun ini bukan admin");
       }
-    }, 1200);
+
+      localStorage.setItem("kuboyako_role", role);
+      localStorage.setItem("kuboyako_user_name", profile?.name ?? credentials.username);
+      localStorage.setItem("kuboyako_user_nrp", profile?.nrp ?? credentials.username);
+
+      void addLog(profile?.nrp ?? credentials.username, role, "LOGIN", "Berhasil masuk ke sistem");
+
+      toast({ title: "Akses Diterima", description: `Selamat datang, ${profile?.name ?? credentials.username}.` });
+      navigate(role === "admin" ? "/admin" : "/user");
+    } catch (err: any) {
+      void addLog(credentials.username, "unknown", "LOGIN_FAILED", "Percobaan login gagal");
+      toast({
+        variant: "destructive",
+        title: "Akses Ditolak",
+        description: err?.message ?? "NRP atau password salah.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
