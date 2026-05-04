@@ -195,13 +195,13 @@ export default function AdminAccounts() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-xl flex items-end sm:items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-xl flex items-end sm:items-center justify-center p-3 sm:p-6 overflow-y-auto"
           >
             <motion.div
               initial={{ y: 100 }}
               animate={{ y: 0 }}
               exit={{ y: 100 }}
-              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-3xl p-6 shadow-2xl relative"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-3xl p-4 sm:p-6 shadow-2xl relative"
             >
               <button
                 onClick={() => setShowAdd(false)}
@@ -256,12 +256,12 @@ export default function AdminAccounts() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-6"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-3xl p-6 text-center border border-white/10"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-3xl p-4 sm:p-6 text-center border border-white/10"
             >
               <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center text-destructive mx-auto mb-4">
                 <Trash2 className="w-8 h-8" />

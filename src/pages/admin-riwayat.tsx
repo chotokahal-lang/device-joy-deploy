@@ -269,13 +269,13 @@ export default function AdminRiwayat() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2.5rem] p-8 border border-white/10 shadow-2xl relative"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-white/10 shadow-2xl relative"
             >
               <button
                 onClick={() => setEditingItem(null)}
@@ -358,13 +358,13 @@ export default function AdminRiwayat() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-lg flex items-center justify-center p-6"
+            className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-lg flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-[2.5rem] p-8 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] text-center"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] text-center"
             >
               <div className="w-20 h-20 rounded-[2rem] bg-destructive/10 flex items-center justify-center text-destructive mx-auto mb-6">
                 <Trash2 className="w-10 h-10" />
