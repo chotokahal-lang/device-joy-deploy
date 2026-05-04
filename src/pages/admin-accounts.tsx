@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Plus, User, Shield, Briefcase, Key, Save, Trash2, X, Search, Edit2, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getUserAccounts, saveUserAccount, UserAccount, addLog, deleteUserAccount } from "@/lib/store";
+import { fetchAccounts, UserAccount, addLog } from "@/lib/store";
+import { supabase } from "@/integrations/supabase/client";
+import { nrpToEmail } from "./login";
 import { PageHeader } from "@/components/layout/page-header";
 import { Icon3D } from "@/components/ui/icon-3d";
 import { icons3d } from "@/assets/icons";
@@ -14,8 +16,9 @@ export default function AdminAccounts() {
   const [searchQuery, setSearchQuery] = useState("");
   const [editingAccount, setEditingAccount] = useState<UserAccount | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const { toast } = useToast();
-  
+
   const [formData, setFormData] = useState({
     nrp: "",
     name: "",
@@ -24,78 +27,76 @@ export default function AdminAccounts() {
     role: "polri" as "admin" | "polri"
   });
 
-  useEffect(() => {
-    setAccounts(getUserAccounts());
-  }, []);
+  const refresh = () => fetchAccounts().then(setAccounts);
+  useEffect(() => { void refresh(); }, []);
 
-  const handleAdd = (e: React.FormEvent) => {
+  const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newAccount: UserAccount = {
-      id: Math.random().toString(36).slice(2, 11),
-      ...formData,
-      createdAt: Date.now()
-    };
-    
-    saveUserAccount(newAccount);
-    setAccounts([...accounts, newAccount]);
-    setShowAdd(false);
-    
-    const adminNrp = localStorage.getItem("kuboyako_user_nrp") || "admin";
-    addLog(adminNrp, "admin", "CREATE_ACCOUNT", `Membuat akun Polri: ${formData.nrp} (${formData.name})`);
-    
-    toast({
-      title: "Akun Berhasil Dibuat",
-      description: `Akun untuk ${formData.name} telah aktif.`
-    });
-    
-    setFormData({ nrp: "", name: "", unit: "", password: "", role: "polri" });
+    setBusy(true);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: nrpToEmail(formData.nrp),
+        password: formData.password,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: { name: formData.name, nrp: formData.nrp, unit: formData.unit },
+        },
+      });
+      if (error) throw error;
+      if (data.user && formData.role === "admin") {
+        await supabase.from("user_roles").insert({ user_id: data.user.id, role: "admin" });
+      }
+      const adminNrp = localStorage.getItem("kuboyako_user_nrp") || "admin";
+      void addLog(adminNrp, "admin", "CREATE_ACCOUNT", `Membuat akun: ${formData.nrp} (${formData.name})`);
+      toast({ title: "Akun Dibuat", description: `Akun ${formData.name} aktif.` });
+      setShowAdd(false);
+      setFormData({ nrp: "", name: "", unit: "", password: "", role: "polri" });
+      await refresh();
+    } catch (err: any) {
+      toast({ variant: "destructive", title: "Gagal Membuat Akun", description: err?.message ?? "Terjadi kesalahan" });
+    } finally {
+      setBusy(false);
+    }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     const accToDelete = accounts.find(a => a.id === id);
     if (!accToDelete) return;
-
-    deleteUserAccount(id);
-    setAccounts(accounts.filter(a => a.id !== id));
+    await supabase.from("user_roles").delete().eq("user_id", id);
+    await supabase.from("profiles").delete().eq("user_id", id);
     setDeletingId(null);
-    
     const adminNrp = localStorage.getItem("kuboyako_user_nrp") || "admin";
-    addLog(adminNrp, "admin", "DELETE_ACCOUNT", `Menghapus akun Polri: ${accToDelete.name}`);
-    
-    toast({
-      title: "Akun Berhasil Dihapus",
-      description: `Data personel ${accToDelete.name} telah dihapus.`,
-    });
+    void addLog(adminNrp, "admin", "DELETE_ACCOUNT", `Menghapus akun: ${accToDelete.name}`);
+    toast({ title: "Akun Dihapus", description: `Profil & peran ${accToDelete.name} dicabut.` });
+    await refresh();
   };
 
-  const handleEdit = (e: React.FormEvent) => {
+  const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingAccount) return;
-
-    const updated = { ...editingAccount, ...formData };
-    // We need a store function for updateAccount, I'll add it to store.ts or just handle it here
-    const allAccounts = getUserAccounts();
-    const index = allAccounts.findIndex(a => a.id === editingAccount.id);
-    if (index !== -1) {
-      allAccounts[index] = updated;
-      localStorage.setItem("kuboyako_accounts", JSON.stringify(allAccounts));
-      setAccounts(allAccounts);
+    setBusy(true);
+    try {
+      await supabase.from("profiles").update({
+        name: formData.name, nrp: formData.nrp, unit: formData.unit,
+      }).eq("user_id", editingAccount.id);
+      if (editingAccount.role !== formData.role) {
+        await supabase.from("user_roles").delete().eq("user_id", editingAccount.id);
+        await supabase.from("user_roles").insert({ user_id: editingAccount.id, role: formData.role });
+      }
+      setEditingAccount(null);
+      setShowAdd(false);
+      toast({ title: "Akun Diperbarui", description: `Data ${formData.name} disimpan.` });
+      await refresh();
+    } catch (err: any) {
+      toast({ variant: "destructive", title: "Gagal", description: err?.message });
+    } finally {
+      setBusy(false);
     }
-
-    setEditingAccount(null);
-    setShowAdd(false);
-    toast({ title: "Akun Diperbarui", description: `Data ${formData.name} telah disimpan.` });
   };
 
   const openEdit = (acc: UserAccount) => {
     setEditingAccount(acc);
-    setFormData({
-      nrp: acc.nrp,
-      name: acc.name,
-      unit: acc.unit,
-      password: acc.password,
-      role: acc.role
-    });
+    setFormData({ nrp: acc.nrp, name: acc.name, unit: acc.unit, password: "", role: acc.role });
     setShowAdd(true);
   };
 
