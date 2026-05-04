@@ -134,7 +134,7 @@ export default function AdminTracking() {
             <motion.div 
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="surface-glass p-8 rounded-[2.5rem] border border-emerald-500/30 w-full max-w-sm text-center shadow-[0_0_100px_rgba(16,185,129,0.15)] relative overflow-hidden"
+              className="surface-glass p-8 rounded-[2.5rem] border border-emerald-500/30 w-full max-w-sm sm:max-w-md lg:max-w-xl text-center shadow-[0_0_100px_rgba(16,185,129,0.15)] relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50" />
               

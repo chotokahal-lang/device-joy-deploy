@@ -87,7 +87,8 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     /* 100% Adaptive Base Font */
-    font-size: clamp(14px, 4vw, 16px);
+    /* Fluid base font: scales smoothly from 320px to 1920px viewports */
+    font-size: clamp(14px, 0.75rem + 0.45vw, 18px);
   }
 
   body,
@@ -275,6 +276,42 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* ── Fluid responsive helpers (320px → 1920px) ── */
+  .fluid-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 3vw, 2.5rem);
+    max-width: min(100%, 1400px);
+  }
+
+  .fluid-text-xs   { font-size: clamp(0.70rem, 0.65rem + 0.20vw, 0.85rem); }
+  .fluid-text-sm   { font-size: clamp(0.80rem, 0.75rem + 0.25vw, 0.95rem); }
+  .fluid-text-base { font-size: clamp(0.95rem, 0.90rem + 0.30vw, 1.10rem); }
+  .fluid-text-lg   { font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.35rem); }
+  .fluid-text-xl   { font-size: clamp(1.25rem, 1.05rem + 0.80vw, 1.75rem); }
+  .fluid-text-2xl  { font-size: clamp(1.50rem, 1.20rem + 1.40vw, 2.40rem); line-height: 1.1; }
+  .fluid-text-3xl  { font-size: clamp(1.85rem, 1.35rem + 2.20vw, 3.20rem); line-height: 1.05; }
+
+  .fluid-gap   { gap: clamp(0.5rem, 1.2vw, 1.25rem); }
+  .fluid-pad   { padding: clamp(1rem, 2.5vw, 2rem); }
+
+  /* Auto-fit grid for cards/lists — works from 320px upward */
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  }
+  .grid-auto-fit-sm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: clamp(0.5rem, 1.2vw, 1rem);
+  }
+  .grid-auto-fit-lg {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
   }
 
   .grain::before {

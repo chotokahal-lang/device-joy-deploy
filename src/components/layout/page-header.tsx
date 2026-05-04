@@ -26,7 +26,7 @@ export function PageHeader({
 
   return (
     <header
-      className="px-6 pb-6 relative z-10"
+      className="fluid-container pb-6 relative z-10"
       style={{ paddingTop: "max(3rem, calc(env(safe-area-inset-top, 0px) + 1.25rem))" }}
     >
       <div className="flex items-center justify-between mb-6">
@@ -76,7 +76,7 @@ export function PageHeader({
           </p>
         )}
         {title && (
-          <h1 className="display-font text-[1.75rem] sm:text-[2rem] leading-[1.05] text-foreground break-words hyphens-auto">
+          <h1 className="display-font fluid-text-2xl leading-[1.05] text-foreground break-words hyphens-auto">
             {typeof title === "string" ? (
               <LiveText as="span" id={`ph-title-${title.replace(/\s+/g, "")}`} defaultText={title} />
             ) : (
@@ -85,7 +85,7 @@ export function PageHeader({
           </h1>
         )}
         {subtitle && (
-          <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-[34ch]">
+          <p className="mt-2 fluid-text-sm text-muted-foreground leading-relaxed max-w-[60ch]">
             {typeof subtitle === "string" ? (
               <LiveText as="span" id={`ph-subtitle-${subtitle.replace(/\s+/g, "")}`} defaultText={subtitle} />
             ) : (
