@@ -137,8 +137,10 @@ export function Logo3DImg({
 
   const ls = labelSize[size];
 
-  // Top label sized proportionally to logo
-  const topLabelWidth = Math.round(px * 0.92);
+  // Top label sized proportionally to logo width
+  const topLabelWidth = Math.round(px * 0.95);
+  const topLabelFontPx = Math.max(8, Math.round(px * 0.085));
+  const topLabelTracking = `${Math.max(1, Math.round(px * 0.012))}px`;
 
   return (
     <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
@@ -154,7 +156,8 @@ export function Logo3DImg({
           as="p"
           id="logo-top-title"
           defaultText="RESMOB POLDA SULSEL"
-          className="font-black uppercase text-center text-foreground whitespace-nowrap"
+          className="font-black uppercase text-center text-foreground whitespace-nowrap drop-shadow-[0_2px_8px_rgba(249,115,22,0.35)]"
+          style={{ fontSize: topLabelFontPx, letterSpacing: topLabelTracking, lineHeight: 1.1 } as any}
         />
         <div
           className="rounded-full bg-primary/60 mt-1.5"
