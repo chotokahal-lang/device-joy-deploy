@@ -63,14 +63,26 @@ export function LiveEditToggle() {
               <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-pulse text-primary">
                 <Wand2 className="w-4 h-4" />
               </div>
-              <div className="pr-2">
+              <div className="pr-2 flex-1">
                 <p className="text-xs font-bold text-primary">
-                  <LiveText as="span" id="live-toggle-banner-title" defaultText="Live Edit ON" />
+                  Live Edit ON {selectedIds.length > 1 && `· ${selectedIds.length} selected`}
                 </p>
-                <p className="text-[10px] text-muted-foreground">
-                  <LiveText as="span" id="live-toggle-banner-hint" defaultText="Click text to modify" />
-                </p>
+                <p className="text-[10px] text-muted-foreground">Shift+klik untuk multi-select</p>
               </div>
+              <button
+                onClick={toggleSnap}
+                title={`Snap-to-grid ${snapEnabled ? "ON" : "OFF"}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center transition ${snapEnabled ? "bg-primary/20 text-primary" : "text-muted-foreground hover:bg-white/5"}`}
+              >
+                <Grid3x3 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setCloudSync(!cloudSyncEnabled)}
+                title={`Cloud sync ${cloudSyncEnabled ? "ON" : "OFF"}`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center transition ${cloudSyncEnabled ? "bg-primary/20 text-primary" : "text-muted-foreground hover:bg-white/5"}`}
+              >
+                {cloudSyncEnabled ? <Cloud className="w-4 h-4" /> : <CloudOff className="w-4 h-4" />}
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
