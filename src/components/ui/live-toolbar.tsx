@@ -240,7 +240,7 @@ export function LiveToolbar() {
                 )}
               </div>
 
-              <div className="p-8 min-h-[12rem] max-h-[60vh] overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
+              <div className="p-4 sm:p-8 min-h-[10rem] flex-1 overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
                 {isImage ? (
                   <div className="flex flex-col items-center justify-center gap-6 py-10">
                      <div className="w-48 h-48 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group bg-black/30 flex items-center justify-center">
