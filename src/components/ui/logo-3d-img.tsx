@@ -152,13 +152,17 @@ export function Logo3DImg({
         className={`flex flex-col items-center select-none ${isEditMode ? "" : "pointer-events-none"}`}
         style={{ width: topLabelWidth }}
       >
-        <LiveText
-          as="p"
-          id="logo-top-title"
-          defaultText="RESMOB POLDA SULSEL"
-          className="font-black uppercase text-center text-foreground whitespace-nowrap drop-shadow-[0_2px_8px_rgba(249,115,22,0.35)]"
-          style={{ fontSize: topLabelFontPx, letterSpacing: topLabelTracking, lineHeight: 1.1 } as any}
-        />
+        <p
+          className="m-0 text-center"
+          style={{ fontSize: topLabelFontPx, letterSpacing: topLabelTracking, lineHeight: 1.1 }}
+        >
+          <LiveText
+            as="span"
+            id="logo-top-title"
+            defaultText="RESMOB POLDA SULSEL"
+            className="font-black uppercase text-foreground whitespace-nowrap drop-shadow-[0_2px_8px_rgba(249,115,22,0.35)]"
+          />
+        </p>
         <div
           className="rounded-full bg-primary/60 mt-1.5"
           style={{ width: Math.min(px * 0.55, 64), height: 2 }}
