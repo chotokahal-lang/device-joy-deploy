@@ -47,7 +47,10 @@ export function MobileFrame({ children }: { children: ReactNode }) {
         style={{ minHeight: "100dvh" }}
       >
         {/* Wrapper konten — lebar penuh di HP, dipusatkan di desktop */}
-        <div className="relative grain flex flex-col w-full mx-auto max-w-screen-2xl flex-1">
+        <div
+          className="relative grain flex flex-col w-full mx-auto flex-1"
+          style={{ maxWidth: "min(100%, 1600px)" }}
+        >
           {children}
         </div>
       </motion.div>
