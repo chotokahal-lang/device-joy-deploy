@@ -5,10 +5,8 @@ import { AgentDebugger } from "@/components/agents/AgentDebugger";
 /**
  * MobileFrame
  *
- * Fluid, fully responsive app shell.
- * - Tidak ada lagi simulasi "frame HP" di desktop.
- * - Konten otomatis menyesuaikan setiap ukuran layar (HP, tablet, desktop).
- * - Menggunakan 100dvh / --vh fallback agar tinggi akurat di iOS/Android.
+ * Container app yang fluid & responsif untuk semua device.
+ * Tidak mengunci tinggi / overflow → scroll natural mengikuti body.
  */
 export function MobileFrame({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -37,43 +35,18 @@ export function MobileFrame({ children }: { children: ReactNode }) {
   return (
     <div
       className="w-full font-sans relative flex flex-col"
-      style={{
-        minHeight: "100dvh",
-        height: "calc(var(--vh, 1vh) * 100)",
-      }}
+      style={{ minHeight: "100dvh" }}
     >
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative flex flex-col flex-1 w-full overflow-hidden"
-        style={{
-          minHeight: "100dvh",
-          height: "calc(var(--vh, 1vh) * 100)",
-        }}
+        className="relative flex flex-col flex-1 w-full"
+        style={{ minHeight: "100dvh" }}
       >
-        {/* Safe-area overlay (notch / status bar) */}
-        <div
-          className="pointer-events-none absolute inset-0 z-[70]"
-          style={{
-            paddingTop: "env(safe-area-inset-top, 0px)",
-            paddingBottom: "env(safe-area-inset-bottom, 0px)",
-          }}
-        />
-
-        {/* Scrollable konten utama */}
-        <div
-          className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide relative z-10 flex flex-col w-full"
-          style={{
-            background: "var(--gradient-deep)",
-            WebkitOverflowScrolling: "touch",
-            paddingBottom: "env(safe-area-inset-bottom, 0px)",
-          }}
-        >
-          {/* Wrapper konten: lebar penuh di HP, dipusatkan dengan max-width di desktop */}
-          <div className="relative grain min-h-full flex flex-col w-full mx-auto max-w-screen-2xl">
-            {children}
-          </div>
+        {/* Wrapper konten — lebar penuh di HP, dipusatkan di desktop */}
+        <div className="relative grain flex flex-col w-full mx-auto max-w-screen-2xl flex-1">
+          {children}
         </div>
       </motion.div>
 
