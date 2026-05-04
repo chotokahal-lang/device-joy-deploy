@@ -49,6 +49,7 @@ export default function AdminInput() {
         asalLp: formData.get("asalLp") as string,
         satker: "POLRESTABES MAKASSAR",
         createdAt: Date.now(),
+        status: "baru" as const,
       };
 
       if (tab === "mobil" || tab === "motor") {

@@ -12,7 +12,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [stats, setStats] = useState({ mobil: 0, motor: 0, hp: 0 });
+  const [stats, setStats] = useState({ mobil: 0, motor: 0, hp: 0, selesai: 0 });
   const [unread, setUnread] = useState(0);
 
   useEffect(() => {
