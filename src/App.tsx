@@ -51,7 +51,7 @@ import loaderLogo from "@/assets/kuboyako-loader.png";
 
 const queryClient = new QueryClient();
 
-// High-performance loading fallback — ᨀᨘᨄᨚᨐᨀᨚ logo fills with color as progress grows
+// High-performance loading fallback — ᨀᨘᨅᨚᨐᨀᨚ logo fills with color as progress grows
 const LoadingFallback = () => {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -72,7 +72,7 @@ const LoadingFallback = () => {
         {/* Grayscale base */}
         <img
           src={loaderLogo}
-          alt="ᨀᨘᨄᨚᨐᨀᨚ"
+          alt="ᨀᨘᨅᨚᨐᨀᨚ"
           className="absolute inset-0 w-full h-full object-contain"
           style={{ filter: "grayscale(1) brightness(0.45) contrast(1.1) invert(0.85)" }}
         />
@@ -90,7 +90,7 @@ const LoadingFallback = () => {
         />
       </div>
       <div className="mt-8 flex flex-col items-center gap-2 relative z-10">
-        <p className="eyebrow tracking-[0.4em] text-primary/80">MEMUAT ᨀᨘᨄᨚᨐᨀᨚ</p>
+        <p className="eyebrow tracking-[0.4em] text-primary/80">MEMUAT ᨀᨘᨅᨚᨐᨀᨚ</p>
         <div className="w-48 h-[3px] rounded-full bg-white/10 overflow-hidden">
           <div
             className="h-full bg-primary transition-[width] duration-150 ease-out"
@@ -231,7 +231,7 @@ function OpeningVideo({ onComplete }: { onComplete: () => void }) {
               <div className="w-10 h-10 rounded-xl bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/30">
                 <LiveText as="span" id="app-opening-brand-letter" className="text-primary font-bold text-lg" defaultText="K" />
               </div>
-              <LiveText as="span" id="app-opening-brand-name" className="text-white font-semibold text-sm" defaultText="ᨀᨘᨄᨚᨐᨀᨚ" />
+              <LiveText as="span" id="app-opening-brand-name" className="text-white font-semibold text-sm" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" />
             </div>
           </motion.div>
         </motion.div>

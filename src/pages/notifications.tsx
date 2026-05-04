@@ -38,7 +38,7 @@ export const ALL_NOTIFS: Notification[] = [
   { id: 5, type: "info", title: "📋 3 Laporan User Masuk", desc: "Menunggu tindak lanjut dari Unit RESMOB POLDA SULSEL", time: "09:00", roles: ["admin"], timestamp: Date.now() - 1000 * 60 * 120 },
   { id: 6, type: "info", title: "🔄 Sinkronisasi DORS Selesai", desc: "12 data berhasil disinkronkan ke sistem RESMOB POLDA SULSEL", time: "08:45", roles: ["admin"], timestamp: Date.now() - 1000 * 60 * 150 },
   { id: 7, type: "info", title: "🔐 Sesi Admin Aktif Tercatat", desc: "Login dari perangkat terotorisasi · RESMOB POLDA SULSEL", time: "08:00", roles: ["admin"], timestamp: Date.now() - 1000 * 60 * 200 },
-  { id: 8, type: "info", title: "📱 Pembaruan Sistem ᨀᨘᨄᨚᨐᨀᨚ", desc: "v2026.1 · LP Search & Arsip Digital diperbarui", time: "Kemarin", roles: ["admin"], timestamp: Date.now() - 1000 * 60 * 60 * 24 },
+  { id: 8, type: "info", title: "📱 Pembaruan Sistem ᨀᨘᨅᨚᨐᨀᨚ", desc: "v2026.1 · LP Search & Arsip Digital diperbarui", time: "Kemarin", roles: ["admin"], timestamp: Date.now() - 1000 * 60 * 60 * 24 },
 
   /* ── POLRI ─────────────────────────────────────────────── */
   { id: 9, type: "alert", title: "🚨 HP Terdeteksi Barang Bukti", desc: "IMEI 358912345678901 · Samsung Galaxy S23 · Waspadai", time: "10:32", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 10 },
@@ -46,14 +46,14 @@ export const ALL_NOTIFS: Notification[] = [
   { id: 11, type: "alert", title: "🚨 Mobil Terdaftar BB", desc: "DD 9999 ZZ · Toyota Innova · LP/321/III/2026/POLRESTABES", time: "Kemarin", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 60 * 20 },
   { id: 12, type: "info", title: "🔄 Sinkronisasi DORS Selesai", desc: "12 data BB terbaru tersedia untuk pencarian", time: "09:00", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 180 },
   { id: 13, type: "info", title: "👮 Status Operasi RESMOB POLDA SULSEL", desc: "Operasi Jatanras aktif · RESMOB POLDA SULSEL · Siaga penuh", time: "08:30", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 220 },
-  { id: 14, type: "info", title: "📱 Pembaruan Sistem ᨀᨘᨄᨚᨐᨀᨚ", desc: "v2026.1 · Fitur cek LP & detail BB diperbarui", time: "Kemarin", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 60 * 18 },
+  { id: 14, type: "info", title: "📱 Pembaruan Sistem ᨀᨘᨅᨚᨐᨀᨚ", desc: "v2026.1 · Fitur cek LP & detail BB diperbarui", time: "Kemarin", roles: ["polri"], timestamp: Date.now() - 1000 * 60 * 60 * 18 },
 
   /* ── UMUM ──────────────────────────────────────────────── */
   { id: 15, type: "success", title: "✅ Identitas Berhasil Diverifikasi", desc: "Wajah & data NIK Anda telah terverifikasi dengan aman", time: "Baru saja", roles: ["umum"], timestamp: Date.now() },
   { id: 16, type: "success", title: "✅ Laporan Temuan Diterima", desc: "Tim RESMOB POLDA SULSEL akan segera menindaklanjuti", time: "Hari ini", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 45 },
-  { id: 17, type: "info", title: "⏰ Layanan ᨀᨘᨄᨚᨐᨀᨚ Aktif 24 Jam", desc: "Cek kendaraan & HP kapan saja · RESMOB POLDA SULSEL", time: "Kemarin", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 60 * 22 },
+  { id: 17, type: "info", title: "⏰ Layanan ᨀᨘᨅᨚᨐᨀᨚ Aktif 24 Jam", desc: "Cek kendaraan & HP kapan saja · RESMOB POLDA SULSEL", time: "Kemarin", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 60 * 22 },
   { id: 18, type: "info", title: "💡 Tips Keamanan Transaksi", desc: "Selalu cek status kendaraan & HP sebelum bertransaksi", time: "Kemarin", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 60 * 26 },
-  { id: 19, type: "info", title: "📱 Pembaruan Layanan", desc: "ᨀᨘᨄᨚᨐᨀᨚ v2026.1 · Verifikasi wajah & identitas lebih aman", time: "2 hari lalu", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 60 * 48 },
+  { id: 19, type: "info", title: "📱 Pembaruan Layanan", desc: "ᨀᨘᨅᨚᨐᨀᨚ v2026.1 · Verifikasi wajah & identitas lebih aman", time: "2 hari lalu", roles: ["umum"], timestamp: Date.now() - 1000 * 60 * 60 * 48 },
 ];
 
 export function getUnreadCount(roleKey: string): number {
@@ -196,7 +196,7 @@ export default function Notifications() {
       <PageHeader
         eyebrow={<LiveText as="span" id="notif-eyebrow" defaultText="Sistem" />}
         title={<LiveText as="span" id="notif-title" defaultText={`Notifikasi ${unreadCount > 0 ? `(${unreadCount})` : ""}`} />}
-        subtitle={<LiveText as="span" id="notif-subtitle" defaultText="Pembaruan dan peringatan sistem ᨀᨘᨄᨚᨐᨀᨚ." />}
+        subtitle={<LiveText as="span" id="notif-subtitle" defaultText="Pembaruan dan peringatan sistem ᨀᨘᨅᨚᨐᨀᨚ." />}
         back={true}
         right={
           <div className="flex items-center gap-1">

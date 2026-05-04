@@ -246,7 +246,7 @@ export default function UserHasil() {
 
       <footer className="px-6 pt-6 text-center relative z-10">
         <p className="eyebrow text-muted-foreground/50">
-          <LiveText as="span" id="hasil-footer" defaultText="Terverifikasi Digital · ᨀᨘᨄᨚᨐᨀᨚ · RESMOB POLDA SULSEL" />
+          <LiveText as="span" id="hasil-footer" defaultText="Terverifikasi Digital · ᨀᨘᨅᨚᨐᨀᨚ · RESMOB POLDA SULSEL" />
         </p>
       </footer>
     </div>

@@ -6,8 +6,8 @@ import { LiveText } from "@/components/ui/live-text";
 
 const FAQS = [
   {
-    q: "Apa itu ᨀᨘᨄᨚᨐᨀᨚ?",
-    a: "ᨀᨘᨄᨚᨐᨀᨚ adalah sistem arsip digital barang bukti kendaraan & HP dari RESMOB POLDA SULSEL. Nama berasal dari bahasa Makassar — \"Boya\" berarti Cari.",
+    q: "Apa itu ᨀᨘᨅᨚᨐᨀᨚ?",
+    a: "ᨀᨘᨅᨚᨐᨀᨚ adalah sistem arsip digital barang bukti kendaraan & HP dari RESMOB POLDA SULSEL. Nama berasal dari bahasa Makassar — \"Boya\" berarti Cari.",
   },
   {
     q: "Siapa yang bisa menggunakan?",
@@ -51,7 +51,7 @@ export default function HelpFaq() {
       <PageHeader
         eyebrow={<LiveText as="span" id="faq-eyebrow" defaultText="Bantuan" />}
         title={<LiveText as="span" id="faq-title" defaultText="FAQ" />}
-        subtitle={<LiveText as="span" id="faq-subtitle" defaultText="Pertanyaan yang sering diajukan tentang ᨀᨘᨄᨚᨐᨀᨚ." />}
+        subtitle={<LiveText as="span" id="faq-subtitle" defaultText="Pertanyaan yang sering diajukan tentang ᨀᨘᨅᨚᨐᨀᨚ." />}
         back="/profile"
         right={
           <span className="w-11 h-11 surface-glass rounded-2xl flex items-center justify-center text-muted-foreground">
