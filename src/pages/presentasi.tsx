@@ -73,7 +73,7 @@ function getCategoryColor(cat: string) {
 
 /* ─────────────────── VOICE NARRATION DATA ──────────────────── */
 const SLIDE_NARRATIONS: string[] = [
-  /* 1 */ "Selamat datang di Aplikasi KUBOYAKO. Sistem Pencarian dan Arsip Barang Bukti Digital milik Subdit Jatanras, Direktorat Kriminal Umum, Polda Sulawesi Selatan. Dirancang oleh Irzal Makkarawah S.H., Panit Katim ANGGOTA POLRI, tahun 2026.",
+  /* 1 */ "Selamat datang di Aplikasi ᨀᨘᨄᨚᨐᨀᨚ. Sistem Pencarian dan Arsip Barang Bukti Digital milik Subdit Jatanras, Direktorat Kriminal Umum, Polda Sulawesi Selatan. Dirancang oleh Irzal Makkarawah S.H., Panit Katim ANGGOTA POLRI, tahun 2026.",
   /* 2 */ "Ini adalah Menu Utama aplikasi. Terdapat dua mode akses. Mode A untuk Admin dan Internal Polri, yang dapat menginput data barang bukti, melakukan scan Laporan Polisi, dan mengelola arsip. Mode B untuk User Umum, yang dapat mengecek status kendaraan dan HP secara mandiri serta melaporkan temuan barang bukti.",
   /* 3 */ "Halaman Login Admin, atau Mode A. Petugas SPKT dan anggota Polri memasukkan NRP dan password untuk verifikasi. Akses ini khusus untuk operator internal Subdit Jatanras, Direktorat Kriminal Umum, Polda Sulawesi Selatan.",
   /* 4 */ "Setelah login, Admin masuk ke Dashboard. Di sini terlihat statistik barang bukti: 4 mobil, 3 motor, dan 5 HP yang telah diarsipkan. Tersedia tiga fitur utama: A.1 Input Manual dengan formulir digital, A.2 Scan LP Otomatis menggunakan AI Vision dan OCR, serta A.3 Status Penginputan untuk riwayat dan arsip lengkap.",
@@ -82,10 +82,10 @@ const SLIDE_NARRATIONS: string[] = [
   /* 7 */ "Proses input data motor. Sama seperti mobil, admin mengisi data LP dan spesifikasi motor. Contoh yang ditampilkan adalah motor Honda Beat FI dengan plat DD 5678 CD, yang berhasil diarsipkan dan tersinkronisasi ke DORS.",
   /* 8 */ "Halaman Login Mode B untuk User. Terdapat dua sub-mode. B.1 untuk Anggota Polri yang login dengan NRP dan mendapat akses penuh untuk cek mobil, motor, HP, dan DATA LP. B.2 untuk User Umum yang bisa mengecek status  serta melaporkan temuan ke kepolisian.",
   /* 9 */ "Dashboard B.1 untuk Anggota Polri. Setelah login, anggota Polri dapat mengakses empat fitur: Cek Mobil, Cek Motor, Cek HP atau IMEI, dan melihat Data Asal Laporan Polisi. Contoh yang ditampilkan adalah Ipda Ahmad Fauzi S.I.K. dari ANGGOTA POLRI.",
-  /* 10 */ "Form Cek Data Mobil untuk Anggota Polri. Masukkan Nomor Polisi atau Nomor Rangka kendaraan. Fitur ini cocok untuk cek cepat saat patroli atau penangkapan di lapangan. Sistem akan mencari dalam database KUBOYAKO.",
+  /* 10 */ "Form Cek Data Mobil untuk Anggota Polri. Masukkan Nomor Polisi atau Nomor Rangka kendaraan. Fitur ini cocok untuk cek cepat saat patroli atau penangkapan di lapangan. Sistem akan mencari dalam database ᨀᨘᨄᨚᨐᨀᨚ.",
   /* 11 */ "Hasil pencarian menampilkan dua kemungkinan. Status Aman berwarna hijau, artinya kendaraan tidak tercatat sebagai barang bukti. Status Merah atau Terdeteksi, artinya kendaraan terdaftar sebagai barang bukti dan sistem otomatis menampilkan detail data Laporan Polisi sumber.",
   /* 12 */ "Detail informasi admin dan kantor penerbit Laporan Polisi. Menampilkan data kendaraan yang terdeteksi, sumber LP dengan nomor LP, nama pelapor, satker penerbit, dan lokasi TKP. Termasuk informasi kantor penerbit LP yaitu SPKT POLDA SULSEL  di Jalan Ahmad Yani Nomor 9 dengan layanan SPKT 24 Jam.",
-  /* 13 */ "Form Cek Data Motor untuk Anggota Polri. Input Nomor Polisi atau Nomor Rangka untuk verifikasi status motor dalam database KUBOYAKO. Contoh yang ditampilkan adalah plat DD 5678 CD.",
+  /* 13 */ "Form Cek Data Motor untuk Anggota Polri. Input Nomor Polisi atau Nomor Rangka untuk verifikasi status motor dalam database ᨀᨘᨄᨚᨐᨀᨚ. Contoh yang ditampilkan adalah plat DD 5678 CD.",
   /* 14 */ "Hasil pencarian motor. Motor dengan plat DD 5678 CD terdeteksi sebagai barang bukti. Honda Beat FI warna merah putih, terkait dengan LP Nomor 456 tahun 2026 dari SPKT Polres Gowa.",
   /* 15 */ "Detail LP motor. Menampilkan data lengkap motor dan sumber Laporan Polisi. Pelapor Andi Rahmat, satker penerbit Polres Gowa, lokasi TKP di Jalan Poros Malino Gowa. Kantor penerbit LP berada di Polres Gowa, Jalan Malino KM 3 Sungguminasa.",
   /* 16 */ "Form Cek Data HP atau IMEI untuk Anggota Polri. Masukkan 15 digit nomor IMEI perangkat. Cara menemukan IMEI: dial bintang pagar 06 pagar, cek kotak HP, atau buka Pengaturan kemudian Tentang Perangkat.",
@@ -98,10 +98,10 @@ const SLIDE_NARRATIONS: string[] = [
   /* 23 */ "Hasil cek motor oleh User Umum. Motor DD 5678 CD terdeteksi sebagai Barang Bukti terkait LP Nomor 456 tahun 2026 dari Polres Gowa. User diarahkan untuk segera melapor ke kepolisian terdekat.",
   /* 24 */ "Proses cek HP atau IMEI oleh User Umum. Cek IMEI sebelum membeli HP bekas. User bisa berpartisipasi melaporkan HP curian kepada pihak kepolisian.",
   /* 25 */ "Hasil cek HP oleh User Umum. Samsung Galaxy S23 terdeteksi sebagai Barang Bukti. User diarahkan untuk menghubungi 110, mendatangi Polsek terdekat, atau menghubungi ANGGOTA POLRI.",
-  /* 26 */ "Tampilan Profil Pengguna. Menampilkan informasi lengkap admin yang sedang login: Irzal Makkarawah S.H., NRP 71040012345678, Pangkat Ipda Penyidik, Satker ANGGOTA POLRI, menggunakan KUBOYAKO versi 2026.1.",
+  /* 26 */ "Tampilan Profil Pengguna. Menampilkan informasi lengkap admin yang sedang login: Irzal Makkarawah S.H., NRP 71040012345678, Pangkat Ipda Penyidik, Satker ANGGOTA POLRI, menggunakan ᨀᨘᨄᨚᨐᨀᨚ versi 2026.1.",
   /* 27 */ "Tampilan Notifikasi Sistem. Menampilkan tiga jenis notifikasi: peringatan motor terdeteksi sebagai barang bukti, konfirmasi data berhasil diarsipkan dan sinkron DORS, serta informasi laporan user baru yang masuk.",
-  /* 28 */ "Halaman Bantuan dan FAQ. Berisi lima pertanyaan umum: penjelasan KUBOYAKO berasal dari bahasa Makassar Boya yang berarti Cari, siapa yang bisa menggunakan aplikasi, arti jika IMEI tidak ditemukan, langkah jika terdeteksi, dan konfirmasi bahwa data bersifat realtime tersinkronisasi dengan APLIKASI DORS MILIK POLRI",
-  /* 29 */ "Halaman penutup. Tentang Aplikasi dan Kredit. KUBOYAKO versi 2026, Sistem Pencarian dan Arsip Barang Bukti. Dibuat oleh Irzal Makkarawah S.H., Subdit Jatanras Direktorat Kriminal Umum ANGGOTA POLRI. Terintegrasi sistem DORS, rencana integrasi E-MP Bareskrim Polri, berbasis Android, user-friendly, dan real-time. Terima kasih telah menyaksikan presentasi ini.",
+  /* 28 */ "Halaman Bantuan dan FAQ. Berisi lima pertanyaan umum: penjelasan ᨀᨘᨄᨚᨐᨀᨚ berasal dari bahasa Makassar Boya yang berarti Cari, siapa yang bisa menggunakan aplikasi, arti jika IMEI tidak ditemukan, langkah jika terdeteksi, dan konfirmasi bahwa data bersifat realtime tersinkronisasi dengan APLIKASI DORS MILIK POLRI",
+  /* 29 */ "Halaman penutup. Tentang Aplikasi dan Kredit. ᨀᨘᨄᨚᨐᨀᨚ versi 2026, Sistem Pencarian dan Arsip Barang Bukti. Dibuat oleh Irzal Makkarawah S.H., Subdit Jatanras Direktorat Kriminal Umum ANGGOTA POLRI. Terintegrasi sistem DORS, rencana integrasi E-MP Bareskrim Polri, berbasis Android, user-friendly, dan real-time. Terima kasih telah menyaksikan presentasi ini.",
 ];
 
 /* ── TTS Voice Narration Engine ─────────────────────── */
@@ -1163,7 +1163,7 @@ export default function Presentasi() {
                     transition={{ delay: 0.7, duration: 0.8 }}
                     className="display-font text-6xl md:text-9xl lg:text-[12rem] text-white mb-8 md:mb-12 tracking-tighter leading-[0.85]"
                   >
-                    <LiveText as="span" id="pres-hero-brand" className="text-gradient italic" defaultText="KUBOYAKO" />
+                    <LiveText as="span" id="pres-hero-brand" className="text-gradient italic" defaultText="ᨀᨘᨄᨚᨐᨀᨚ" />
                   </motion.h2>
 
                   <motion.p
