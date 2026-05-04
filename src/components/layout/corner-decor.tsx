@@ -25,10 +25,10 @@ function mulberry32(seed: number) {
 }
 
 const CORNERS = [
-  { key: "tl", cls: "top-0 left-0", origin: "top left", float: { x: [0, 6, 0], y: [0, 4, 0] } },
-  { key: "tr", cls: "top-0 right-0", origin: "top right", float: { x: [0, -6, 0], y: [0, 4, 0] } },
-  { key: "bl", cls: "bottom-0 left-0", origin: "bottom left", float: { x: [0, 6, 0], y: [0, -4, 0] } },
-  { key: "br", cls: "bottom-0 right-0", origin: "bottom right", float: { x: [0, -6, 0], y: [0, -4, 0] } },
+  { key: "tl", cls: "top-0 left-0", origin: "top left", tx: "-18%", ty: "-18%", float: { x: [0, 6, 0], y: [0, 4, 0] } },
+  { key: "tr", cls: "top-0 right-0", origin: "top right", tx: "18%", ty: "-18%", float: { x: [0, -6, 0], y: [0, 4, 0] } },
+  { key: "bl", cls: "bottom-0 left-0", origin: "bottom left", tx: "-18%", ty: "18%", float: { x: [0, 6, 0], y: [0, -4, 0] } },
+  { key: "br", cls: "bottom-0 right-0", origin: "bottom right", tx: "18%", ty: "18%", float: { x: [0, -6, 0], y: [0, -4, 0] } },
 ];
 
 export function CornerDecor() {
@@ -60,14 +60,10 @@ export function CornerDecor() {
             lg:w-[22vw] lg:h-[22vw]
             max-w-[360px] max-h-[360px]
             min-w-[140px] min-h-[140px]
-            -translate-x-[18%] -translate-y-[18%]
-            data-[corner=tr]:translate-x-[18%] data-[corner=tr]:-translate-y-[18%]
-            data-[corner=bl]:-translate-x-[18%] data-[corner=bl]:translate-y-[18%]
-            data-[corner=br]:translate-x-[18%] data-[corner=br]:translate-y-[18%]
           `}
-          data-corner={it.key}
           style={{
             transformOrigin: it.origin,
+            translate: `${it.tx} ${it.ty}`,
             opacity: 0.32,
             filter:
               "drop-shadow(0 10px 28px rgba(249,115,22,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.55))",
