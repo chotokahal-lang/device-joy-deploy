@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveEditToggle() {
-  const { isEditMode, setEditMode } = useLiveEditStore();
+  const { isEditMode, setEditMode, unlocked, setUnlocked } = useLiveEditStore();
   const { toast } = useToast();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
@@ -16,18 +16,24 @@ export function LiveEditToggle() {
       setEditMode(false);
       return;
     }
+    if (unlocked) {
+      setEditMode(true);
+      toast({ title: "Live Edit Aktif", description: "Mode edit diaktifkan kembali." });
+      return;
+    }
     setShowPasswordModal(true);
   };
 
   const verifyPassword = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (passwordInput === "8686resmob") {
+      setUnlocked(true);
       setEditMode(true);
       setShowPasswordModal(false);
       setPasswordInput("");
       toast({
         title: "Live Edit Aktif",
-        description: "Anda sekarang dapat mengubah teks secara langsung.",
+        description: "Otorisasi tersimpan. Tidak perlu password lagi di sesi berikutnya.",
       });
     } else {
       toast({
