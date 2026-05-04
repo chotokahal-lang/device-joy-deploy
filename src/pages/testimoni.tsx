@@ -10,7 +10,7 @@ const testimonials = [
   {
     name: "Aiptu Muh. Rizal, S.H.",
     role: "Ba Ur Barbuk Unit V Subdit Jatanras",
-    content: "Sebelum ada ᨀᨘᨅᨚᨐᨀᨚ, kami harus buka catatan manual satu per satu di gudang barbuk. Sekarang cukup ketik nomor LP, semua data langsung keluar. Hemat waktu berjam-jam setiap hari.",
+    content: "Sebelum ada BOYAKO, kami harus buka catatan manual satu per satu di gudang barbuk. Sekarang cukup ketik nomor LP, semua data langsung keluar. Hemat waktu berjam-jam setiap hari.",
     avatar: "MR",
     accent: "from-blue-600 to-indigo-700"
   },
@@ -24,7 +24,7 @@ const testimonials = [
   {
     name: "Iptu Hasan Basri, S.I.K.",
     role: "Kanit V Subdit Jatanras Ditkrimum",
-    content: "Sebagai Kanit, saya butuh data yang cepat dan akurat untuk laporan ke pimpinan. ᨀᨘᨅᨚᨐᨀᨚ mempermudah monitoring status barbuk di unit kami secara real-time.",
+    content: "Sebagai Kanit, saya butuh data yang cepat dan akurat untuk laporan ke pimpinan. BOYAKO mempermudah monitoring status barbuk di unit kami secara real-time.",
     avatar: "HB",
     accent: "from-emerald-500 to-teal-700"
   },
@@ -38,14 +38,14 @@ const testimonials = [
   {
     name: "Muh. Ardiansyah",
     role: "Mahasiswa, Warga Kota Makassar",
-    content: "Mau beli HP bekas di pasar, saya cek dulu IMEI-nya di ᨀᨘᨅᨚᨐᨀᨚ. Ternyata statusnya bersih. Jadi saya beli dengan tenang tanpa takut tertipu barang curian.",
+    content: "Mau beli HP bekas di pasar, saya cek dulu IMEI-nya di BOYAKO. Ternyata statusnya bersih. Jadi saya beli dengan tenang tanpa takut tertipu barang curian.",
     avatar: "MA",
     accent: "from-cyan-500 to-blue-600"
   },
   {
     name: "Brigpol Fadli Rahman",
     role: "Operator DORS Ditkrimum Polda Sulsel",
-    content: "Sinkronisasi data antara ᨀᨘᨅᨚᨐᨀᨚ dan sistem DORS berjalan lancar. Tidak ada lagi data ganda atau nomor LP yang tertukar. Administrasi jadi jauh lebih tertib.",
+    content: "Sinkronisasi data antara BOYAKO dan sistem DORS berjalan lancar. Tidak ada lagi data ganda atau nomor LP yang tertukar. Administrasi jadi jauh lebih tertib.",
     avatar: "FR",
     accent: "from-slate-600 to-slate-800"
   }
@@ -154,7 +154,7 @@ export default function TestimoniPage() {
             transition={{ delay: 0.1 }}
             className="text-5xl md:text-8xl font-black mb-8 tracking-tight leading-tight"
           >
-            <LiveText id="testi-v3-page-title-1" defaultText="Ulasan Tentang" /> <span className="text-gradient"><LiveText id="testi-v3-page-title-2" defaultText="Aplikasi ᨀᨘᨅᨚᨐᨀᨚ" /></span>
+            <LiveText id="testi-v3-page-title-1" defaultText="Ulasan Tentang" /> <span className="text-gradient"><LiveText id="testi-v3-page-title-2" defaultText="Aplikasi BOYAKO" /></span>
           </motion.h1>
           
           <motion.p
@@ -163,7 +163,7 @@ export default function TestimoniPage() {
             transition={{ delay: 0.2 }}
             className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-3xl mx-auto"
           >
-            <LiveText id="testi-v3-page-desc" defaultText="Pengalaman langsung dari anggota Polri di jajaran Ditkrimum Polda Sulsel dan masyarakat Kota Makassar yang telah menggunakan sistem ᨀᨘᨅᨚᨐᨀᨚ." />
+            <LiveText id="testi-v3-page-desc" defaultText="Pengalaman langsung dari anggota Polri di jajaran Ditkrimum Polda Sulsel dan masyarakat Kota Makassar yang telah menggunakan sistem BOYAKO." />
           </motion.p>
         </div>
 
@@ -258,7 +258,7 @@ export default function TestimoniPage() {
             Punya Saran atau <span className="text-gradient">Pengalaman?</span>
           </h2>
           <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Bantu kami meningkatkan ᨀᨘᨅᨚᨐᨀᨚ dengan membagikan pengalaman Anda.
+            Bantu kami meningkatkan BOYAKO dengan membagikan pengalaman Anda.
             Masukan dari pengguna adalah kunci pengembangan sistem yang lebih baik.
           </p>
           
@@ -281,7 +281,7 @@ export default function TestimoniPage() {
       {/* Footer Branding */}
       <footer className="py-12 text-center">
          <p className="text-[10px] text-muted-foreground uppercase tracking-[0.5em] font-bold">
-           ᨀᨘᨅᨚᨐᨀᨚ — RESMOB POLDA SULSEL — 2026
+           BOYAKO — RESMOB POLDA SULSEL — 2026
          </p>
       </footer>
     </div>

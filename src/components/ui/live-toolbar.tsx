@@ -7,7 +7,7 @@ import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveToolbar() {
-  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future } = useLiveEditStore();
+  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future, selectedIds, clearSelection, patchTransform, commit } = useLiveEditStore();
   const scales = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.scale ?? 1])), [transforms]);
   const rotations = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.rotation ?? 0])), [transforms]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -15,8 +15,9 @@ export function LiveToolbar() {
   /** Draft lokal = tidak memaksa re-render dari store tiap ketukan → kursor stabil & mirror realtime ke store */
   const [draftHtml, setDraftHtml] = React.useState("");
 
-  // 1. Declare derived state first
-  const isVisible = !!(isEditMode && activeElementId);
+  // 1. Derived state — hide editor modal during multi-select
+  const isMulti = selectedIds.length > 1;
+  const isVisible = !!(isEditMode && activeElementId && !isMulti);
   
   // Safe check for image type
   const getIsImage = () => {
@@ -306,6 +307,7 @@ export function LiveToolbar() {
           </div>
         )}
       </AnimatePresence>
+      <MultiSelectBar />
     </>
   );
 }
@@ -385,6 +387,46 @@ function ImageControls({
           <RefreshCw className="w-3.5 h-3.5" /> Reset
         </button>
       </div>
+    </div>
+  );
+}
+
+function MultiSelectBar() {
+  const { isEditMode, selectedIds, clearSelection, patchTransformMany, commit, resetElement } = useLiveEditStore();
+  if (!isEditMode || selectedIds.length < 2) return null;
+  const nudge = (dx: number, dy: number) => {
+    patchTransformMany(selectedIds, { offsetX: 0, offsetY: 0 } as any, false); // noop guard
+    // apply incremental offsets to each
+    const state = useLiveEditStore.getState();
+    const transforms = { ...state.transforms };
+    selectedIds.forEach((id) => {
+      const t = transforms[id] ?? {};
+      transforms[id] = { ...t, offsetX: (t.offsetX ?? 0) + dx, offsetY: (t.offsetY ?? 0) + dy };
+    });
+    useLiveEditStore.setState({ transforms });
+    commit();
+  };
+  return (
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[10005] surface-elevated border border-white/10 rounded-2xl shadow-2xl px-3 py-2 flex items-center gap-2 pointer-events-auto">
+      <span className="text-xs font-bold text-primary px-2">{selectedIds.length} dipilih</span>
+      <div className="w-px h-5 bg-white/10" />
+      <button onClick={() => nudge(-8, 0)} className="live-toolbar-btn h-8 w-8 rounded-lg surface text-xs font-bold hover:bg-white/10">←</button>
+      <button onClick={() => nudge(0, -8)} className="live-toolbar-btn h-8 w-8 rounded-lg surface text-xs font-bold hover:bg-white/10">↑</button>
+      <button onClick={() => nudge(0, 8)} className="live-toolbar-btn h-8 w-8 rounded-lg surface text-xs font-bold hover:bg-white/10">↓</button>
+      <button onClick={() => nudge(8, 0)} className="live-toolbar-btn h-8 w-8 rounded-lg surface text-xs font-bold hover:bg-white/10">→</button>
+      <div className="w-px h-5 bg-white/10" />
+      <button
+        onClick={() => { selectedIds.forEach(resetElement); clearSelection(); }}
+        className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold hover:bg-white/10 text-primary flex items-center gap-1"
+      >
+        <RefreshCw className="w-3.5 h-3.5" /> Reset
+      </button>
+      <button
+        onClick={clearSelection}
+        className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold hover:bg-white/10"
+      >
+        Tutup
+      </button>
     </div>
   );
 }

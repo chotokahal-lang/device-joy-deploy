@@ -181,7 +181,7 @@ function GreenCard({ query }: { query: string }) {
             <LiveText id={`greencard-query-${query}`} defaultText={query} />
           </p>
           <p className="text-[9px] md:text-base text-muted-foreground mt-1.5 pt-1.5 border-t border-white/5">
-            <LiveText id={`greencard-desc-${query}`} defaultText="Tidak tercatat sebagai barang bukti tindak pidana di database ᨀᨘᨅᨚᨐᨀᨚ & DORS." />
+            <LiveText id={`greencard-desc-${query}`} defaultText="Tidak tercatat sebagai barang bukti tindak pidana di database BOYAKO & DORS." />
           </p>
         </div>
       </div>
@@ -862,7 +862,7 @@ export const SLIDES_1_15 = [
               >
                 <Search className="w-4 h-4 text-primary-foreground" />
                 <span className="text-sm font-bold text-primary-foreground">
-                  <LiveText id="pres-cek-mobil-btn" defaultText="Cari di Database ᨀᨘᨅᨚᨐᨀᨚ" />
+                  <LiveText id="pres-cek-mobil-btn" defaultText="Cari di Database BOYAKO" />
                 </span>
               </motion.div>
             </div>
@@ -1037,7 +1037,7 @@ export const SLIDES_1_15 = [
               >
                 <Star className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                 <p className="text-[10px] text-muted-foreground text-left">
-                  <LiveText id="pres-cek-motor-hint" defaultText="Input Nomor Polisi, Nomor Rangka, atau Nomor Mesin untuk verifikasi status motor dalam database ᨀᨘᨅᨚᨐᨀᨚ." />
+                  <LiveText id="pres-cek-motor-hint" defaultText="Input Nomor Polisi, Nomor Rangka, atau Nomor Mesin untuk verifikasi status motor dalam database BOYAKO." />
                 </p>
               </motion.div>
               <motion.div
@@ -1048,7 +1048,7 @@ export const SLIDES_1_15 = [
               >
                 <Search className="w-4 h-4 text-primary-foreground" />
                 <span className="text-sm font-bold text-primary-foreground">
-                  <LiveText id="pres-cek-motor-btn" defaultText="Cari di Database ᨀᨘᨅᨚᨐᨀᨚ" />
+                  <LiveText id="pres-cek-motor-btn" defaultText="Cari di Database BOYAKO" />
                 </span>
               </motion.div>
             </div>
@@ -1204,7 +1204,7 @@ export const SLIDES_16_29 = [
               >
                 <Search className="w-4 h-4 text-primary-foreground" />
                 <span className="text-sm font-bold text-primary-foreground">
-                  <LiveText id="pres-imei-db-btn" defaultText="Cari di Database ᨀᨘᨅᨚᨐᨀᨚ" />
+                  <LiveText id="pres-imei-db-btn" defaultText="Cari di Database BOYAKO" />
                 </span>
               </motion.div>
             </div>
@@ -1328,7 +1328,7 @@ export const SLIDES_16_29 = [
                     <LiveText id="pres-umum-tag" defaultText="B.2 · User Umum" />
                   </p>
                   <p className="text-xs text-foreground font-medium">
-                    <LiveText id="pres-umum-subtitle" defaultText="Layanan Mandiri 24 Jam · ᨀᨘᨅᨚᨐᨀᨚ" />
+                    <LiveText id="pres-umum-subtitle" defaultText="Layanan Mandiri 24 Jam · BOYAKO" />
                   </p>
                   <p className="text-[10px] text-muted-foreground/60">
                     <LiveText id="pres-umum-integration" defaultText="Terintegrasi SI SDM POLRI" />
@@ -1693,7 +1693,7 @@ export const SLIDES_16_29 = [
                 <Row label="NRP" val="71040012345678" />
                 <Row label="Pangkat" val="IPDA / Penyidik" />
                 <Row label="Satker" val="ANGGOTA POLRI" />
-                <Row label="Versi App" val="ᨀᨘᨅᨚᨐᨀᨚ v2026.1" />
+                <Row label="Versi App" val="BOYAKO v2026.1" />
               </div>
               <p className="text-[10px] text-muted-foreground/60 mt-3 border-t border-white/5 pt-2">
                 <LiveText id="pres-profile-footer" defaultText="Terintegrasi SI SDM POLRI" />
@@ -1802,7 +1802,7 @@ export const SLIDES_16_29 = [
             <div className="w-full space-y-2">
               {[
                 {
-                  q: "Apa itu ᨀᨘᨅᨚᨐᨀᨚ?",
+                  q: "Apa itu BOYAKO?",
                   a: "Sistem arsip digital BB kendaraan & HP dari bahasa Makassar: Boya = Cari.",
                 },
                 {
@@ -1873,7 +1873,7 @@ export const SLIDES_16_29 = [
               transition={{ delay: 0.25 }}
             >
               <h2 className="display-font text-2xl text-foreground mb-1">
-                <LiveText id="pres-final-title" defaultText="ᨀᨘᨅᨚᨐᨀᨚ" /> <span className="text-gradient">v2026</span>
+                <LiveText id="pres-final-title" defaultText="BOYAKO" /> <span className="text-gradient">v2026</span>
               </h2>
               <p className="eyebrow text-muted-foreground/70 mb-4">
                 <LiveText id="pres-final-tag" defaultText="Sistem pencarian DAN Arsip barang bukti tindak pidana" />
@@ -1903,7 +1903,7 @@ export const SLIDES_16_29 = [
                 <div className="space-y-1.5">
                   <Row label="Instansi" val="Ditkrimum ANGGOTA POLRI" />
                   <Row label="Jabatan" val="Panit/Katim" />
-                  <Row label="Versi" val="ᨀᨘᨅᨚᨐᨀᨚ 2026.1" />
+                  <Row label="Versi" val="BOYAKO 2026.1" />
                   <Row label="Platform" val="Android · Web · Progressive App" />
                 </div>
               </Card>
@@ -1940,7 +1940,7 @@ export const SLIDES_16_29 = [
               </motion.button>
             </Link>
             <p className="mt-3 eyebrow text-muted-foreground/40">
-              <LiveText id="pres-final-copyright" defaultText="ᨀᨘᨅᨚᨐᨀᨚ · 2026" />
+              <LiveText id="pres-final-copyright" defaultText="BOYAKO · 2026" />
             </p>
           </>
         }
