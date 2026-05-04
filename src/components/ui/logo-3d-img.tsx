@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { ImagePlus } from "lucide-react";
 import { LiveText } from "@/components/ui/live-text";
+import resmobLogo from "@/assets/resmob-logo.png";
 
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "hero";
 type Intensity = "low" | "normal" | "high";
@@ -213,6 +214,21 @@ export function Logo3DImg({
           <div
             className="rounded-full bg-primary/40 mt-1"
             style={{ width: Math.min(px * 0.45, 52), height: 1 }}
+          />
+          <motion.img
+            src={resmobLogo}
+            alt="RESMOB POLDA SULSEL"
+            draggable={false}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 0.92, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="object-contain select-none mt-2"
+            style={{
+              width: Math.round(px * 0.55),
+              height: "auto",
+              filter:
+                "drop-shadow(0 4px 10px rgba(249,115,22,0.35)) drop-shadow(0 2px 6px rgba(0,0,0,0.5))",
+            }}
           />
         </motion.div>
       )}
