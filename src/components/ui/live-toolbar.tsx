@@ -295,3 +295,70 @@ function ToolBtn({ children, onClick, title }: { children: React.ReactNode; onCl
     </button>
   );
 }
+
+function ImageControls({
+  scale, rotation, onScale, onRotate, onReset,
+}: {
+  scale: number;
+  rotation: number;
+  onScale: (v: number) => void;
+  onRotate: (v: number) => void;
+  onReset: () => void;
+}) {
+  return (
+    <div className="flex flex-col gap-3 p-3 surface-glass rounded-2xl border border-white/5">
+      <div className="flex items-center gap-2">
+        <ZoomOut className="w-4 h-4 text-muted-foreground shrink-0" />
+        <input
+          type="range"
+          min={0.2}
+          max={3}
+          step={0.05}
+          value={scale}
+          onChange={(e) => onScale(parseFloat(e.target.value))}
+          className="flex-1 accent-primary"
+        />
+        <ZoomIn className="w-4 h-4 text-muted-foreground shrink-0" />
+        <span className="text-[10px] font-bold text-foreground w-10 text-right tabular-nums">
+          {Math.round(scale * 100)}%
+        </span>
+      </div>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => onScale(Math.max(0.2, scale - 0.1))}
+          className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold flex items-center gap-1 hover:bg-white/10"
+        >
+          <ZoomOut className="w-3.5 h-3.5" /> Kecil
+        </button>
+        <button
+          onClick={() => onScale(Math.min(3, scale + 0.1))}
+          className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold flex items-center gap-1 hover:bg-white/10"
+        >
+          <ZoomIn className="w-3.5 h-3.5" /> Besar
+        </button>
+        <div className="w-px h-5 bg-white/10" />
+        <button
+          onClick={() => onRotate(rotation - 15)}
+          className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold flex items-center gap-1 hover:bg-white/10"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={() => onRotate(rotation + 15)}
+          className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold flex items-center gap-1 hover:bg-white/10"
+        >
+          <RotateCw className="w-3.5 h-3.5" />
+        </button>
+        <span className="text-[10px] font-bold text-muted-foreground tabular-nums">{rotation}°</span>
+        <div className="ml-auto" />
+        <button
+          onClick={onReset}
+          className="live-toolbar-btn h-8 px-3 rounded-lg surface text-xs font-bold flex items-center gap-1 hover:bg-white/10 text-primary"
+          title="Reset"
+        >
+          <RefreshCw className="w-3.5 h-3.5" /> Reset
+        </button>
+      </div>
+    </div>
+  );
+}
