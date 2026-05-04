@@ -26,14 +26,10 @@ function mulberry32(a: number) {
   };
 }
 
-/** 6 random anchor zones across the viewport — keeps content middle clear-ish */
+/** Hanya 2 sudut: kiri-atas & kanan-bawah (sesuai brief). Tengah tetap bersih. */
 const ZONES = [
   { top: "2%", left: "2%" },
-  { top: "4%", right: "3%" },
-  { top: "38%", left: "1%" },
-  { top: "42%", right: "2%" },
-  { bottom: "3%", left: "4%" },
-  { bottom: "2%", right: "3%" },
+  { bottom: "2%", right: "2%" },
 ] as const;
 
 export function CornerDecor() {
@@ -41,22 +37,17 @@ export function CornerDecor() {
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 6000);
+    // Rotasi pelan supaya animasi tidak ramai
+    const id = setInterval(() => setTick((t) => t + 1), 14000);
     return () => clearInterval(id);
   }, []);
 
   const items = useMemo(() => {
     const rng = mulberry32(hashString(pathname || "/") + tick * 1009);
-    // pick 4 zones out of 6 deterministically per (path + tick)
-    const zoneOrder = [...ZONES.keys()].sort(() => rng() - 0.5).slice(0, 4);
-    return zoneOrder.map((zi, i) => {
-      const zone = ZONES[zi];
+    return ZONES.map((zone, i) => {
       const asset = ASSETS[Math.floor(rng() * ASSETS.length)];
-      const rot = Math.round((rng() - 0.5) * 40); // -20..20
-      const driftX = Math.round((rng() - 0.5) * 14);
-      const driftY = Math.round((rng() - 0.5) * 14);
-      const delay = i * 0.15;
-      return { zone, asset, rot, driftX, driftY, delay, key: `${zi}-${i}-${tick}` };
+      const rot = Math.round((rng() - 0.5) * 20);
+      return { zone, asset, rot, delay: i * 0.2, key: `${i}-${tick}` };
     });
   }, [pathname, tick]);
 
@@ -67,30 +58,18 @@ export function CornerDecor() {
           <motion.div
             key={it.key}
             className="absolute
-              w-[34vw] h-[34vw]
-              sm:w-[24vw] sm:h-[24vw]
-              md:w-[18vw] md:h-[18vw]
-              lg:w-[14vw] lg:h-[14vw]
-              xl:w-[12vw] xl:h-[12vw]
-              max-w-[240px] max-h-[240px]
-              min-w-[96px] min-h-[96px]"
+              w-[26vw] h-[26vw]
+              sm:w-[20vw] sm:h-[20vw]
+              md:w-[16vw] md:h-[16vw]
+              lg:w-[13vw] lg:h-[13vw]
+              xl:w-[11vw] xl:h-[11vw]
+              max-w-[220px] max-h-[220px]
+              min-w-[80px] min-h-[80px]"
             style={it.zone as React.CSSProperties}
-            initial={{ opacity: 0, scale: 0.6, rotate: it.rot - 12 }}
-            animate={{
-              opacity: 0.28,
-              scale: 1,
-              rotate: it.rot,
-              x: [0, it.driftX, 0],
-              y: [0, it.driftY, 0],
-            }}
-            exit={{ opacity: 0, scale: 0.7, rotate: it.rot + 12 }}
-            transition={{
-              opacity: { duration: 1.0, delay: it.delay, ease: [0.16, 1, 0.3, 1] },
-              scale: { duration: 1.0, delay: it.delay, ease: [0.16, 1, 0.3, 1] },
-              rotate: { duration: 1.0, delay: it.delay, ease: [0.16, 1, 0.3, 1] },
-              x: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 9, repeat: Infinity, ease: "easeInOut" },
-            }}
+            initial={{ opacity: 0, scale: 0.9, rotate: it.rot - 4 }}
+            animate={{ opacity: 0.22, scale: 1, rotate: it.rot }}
+            exit={{ opacity: 0, scale: 0.95, rotate: it.rot + 4 }}
+            transition={{ duration: 1.6, delay: it.delay, ease: [0.16, 1, 0.3, 1] }}
           >
             <img
               src={it.asset}
@@ -100,11 +79,11 @@ export function CornerDecor() {
               className="w-full h-full object-contain select-none"
               style={{
                 filter:
-                  "drop-shadow(0 6px 18px rgba(249,115,22,0.40)) drop-shadow(0 4px 10px rgba(0,0,0,0.45))",
+                  "drop-shadow(0 6px 16px rgba(249,115,22,0.35)) drop-shadow(0 4px 10px rgba(0,0,0,0.40))",
                 maskImage:
-                  "radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 96%)",
+                  "radial-gradient(circle at center, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 96%)",
                 WebkitMaskImage:
-                  "radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 96%)",
+                  "radial-gradient(circle at center, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 96%)",
               }}
             />
           </motion.div>
