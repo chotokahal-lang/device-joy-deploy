@@ -137,53 +137,7 @@ export function Logo3DImg({
 
   const ls = labelSize[size];
 
-  return (
-    <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
-      {/* Image wrapper — relative container so glows center on the image */}
-      <div className="relative flex items-center justify-center" style={containerStyle}>
-        {/* Outer ambient glow */}
-        <div
-          className="absolute rounded-full bg-primary/20 pointer-events-none"
-          style={{ ...glowStyle, filter: "blur(56px)" }}
-        />
-        {/* Mid glow ring */}
-        <div
-          className="absolute rounded-full bg-primary/18 pointer-events-none"
-          style={{ ...midGlowStyle, filter: "blur(24px)" }}
-        />
-        {/* Floor reflection */}
-        <div
-          className="absolute rounded-full pointer-events-none opacity-40"
-          style={{ ...floorStyle, filter: "blur(18px)" }}
-        />
-        {/* Logo image */}
-        <div
-          id="main-logo"
-          className={`relative flex items-center justify-center ${isEditMode ? "group cursor-pointer" : ""} ${isActive ? "ring-2 ring-primary rounded-2xl pointer-events-auto" : ""} ${hasActiveElement && !isActive ? "opacity-30 pointer-events-none" : ""}`}
-          onClick={handleImageClick}
-          style={{ width: px, height: px, ...(isActive ? { position: "relative" as const, zIndex: 9999 } : {}) }}
-        >
-          <motion.img
-            src={currentSrc}
-            alt="KUBOYAKO"
-            draggable={false}
-            className={`relative object-contain select-none transition-all ${isEditMode && !hasActiveElement ? "group-hover:opacity-50 group-hover:blur-[2px]" : ""}`}
-            style={{ ...tiltStyle, width: px, height: px }}
-            {...floatVariants}
-          />
-          {isEditMode && !isActive && !hasActiveElement && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground shadow-xl">
-                <ImagePlus className="w-5 h-5" />
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
   // Top label sized proportionally to logo
-  const topLabelFontPx = Math.max(9, Math.round(px * 0.085));
-  const topLabelTracking = `${Math.max(2, Math.round(px * 0.012))}px`;
   const topLabelWidth = Math.round(px * 0.92);
 
   return (
