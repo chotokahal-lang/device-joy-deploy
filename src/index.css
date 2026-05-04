@@ -87,7 +87,8 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     /* 100% Adaptive Base Font */
-    font-size: clamp(14px, 4vw, 16px);
+    /* Fluid base font: scales smoothly from 320px to 1920px viewports */
+    font-size: clamp(14px, 0.75rem + 0.45vw, 18px);
   }
 
   body,
