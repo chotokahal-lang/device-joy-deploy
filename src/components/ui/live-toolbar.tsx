@@ -274,7 +274,7 @@ export function LiveToolbar() {
                 )}
               </div>
 
-              <div className="p-6 bg-white/[0.02] border-t border-white/5 flex flex-col gap-3">
+              <div className="p-3 sm:p-6 bg-white/[0.02] border-t border-white/5 flex flex-col gap-2 sm:gap-3">
                  <div className="flex gap-3">
                     {!isImage && (
                        <button
