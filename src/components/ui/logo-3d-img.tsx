@@ -137,8 +137,37 @@ export function Logo3DImg({
 
   const ls = labelSize[size];
 
+  // Top label sized proportionally to logo width
+  const topLabelWidth = Math.round(px * 0.95);
+  const topLabelFontPx = Math.max(8, Math.round(px * 0.085));
+  const topLabelTracking = `${Math.max(1, Math.round(px * 0.012))}px`;
+
   return (
     <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
+      {/* Top institutional label — sized to logo */}
+      <motion.div
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.5 }}
+        className={`flex flex-col items-center select-none ${isEditMode ? "" : "pointer-events-none"}`}
+        style={{ width: topLabelWidth }}
+      >
+        <p
+          className="m-0 text-center"
+          style={{ fontSize: topLabelFontPx, letterSpacing: topLabelTracking, lineHeight: 1.1 }}
+        >
+          <LiveText
+            as="span"
+            id="logo-top-title"
+            defaultText="RESMOB POLDA SULSEL"
+            className="font-black uppercase text-foreground whitespace-nowrap drop-shadow-[0_2px_8px_rgba(249,115,22,0.35)]"
+          />
+        </p>
+        <div
+          className="rounded-full bg-primary/60 mt-1.5"
+          style={{ width: Math.min(px * 0.55, 64), height: 2 }}
+        />
+      </motion.div>
       {/* Image wrapper — relative container so glows center on the image */}
       <div className="relative flex items-center justify-center" style={containerStyle}>
         {/* Outer ambient glow */}
@@ -167,8 +196,17 @@ export function Logo3DImg({
             src={currentSrc}
             alt="KUBOYAKO"
             draggable={false}
+            decoding="async"
+            loading="eager"
             className={`relative object-contain select-none transition-all ${isEditMode && !hasActiveElement ? "group-hover:opacity-50 group-hover:blur-[2px]" : ""}`}
-            style={{ ...tiltStyle, width: px, height: px }}
+            style={{
+              ...tiltStyle,
+              width: px,
+              height: px,
+              imageRendering: "auto",
+              backfaceVisibility: "hidden",
+              transformStyle: "preserve-3d",
+            }}
             {...floatVariants}
           />
           {isEditMode && !isActive && !hasActiveElement && (
@@ -181,7 +219,7 @@ export function Logo3DImg({
         </div>
       </div>
 
-      {/* Institutional label — only md and above */}
+      {/* Bottom subtitle — only md and above */}
       {showLabel && (
         <motion.div
           initial={{ opacity: 0, y: 5 }}
