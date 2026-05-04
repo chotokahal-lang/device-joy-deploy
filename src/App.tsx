@@ -47,30 +47,63 @@ import { LiveEditToggle } from "@/components/ui/live-edit-toggle";
 import { LiveToolbar } from "@/components/ui/live-toolbar";
 import { LiveText } from "@/components/ui/live-text";
 import openingVideo from "@/assets/video.mp4";
+import loaderLogo from "@/assets/kuboyako-loader.png";
 
 const queryClient = new QueryClient();
 
-// High-performance loading fallback
-const LoadingFallback = () => (
-  <div className="flex flex-col items-center justify-center min-h-screen bg-[#02050A] text-primary overflow-hidden relative">
-    <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent opacity-50" />
-    <div className="relative">
-      <div className="absolute inset-0 bg-primary/20 blur-[100px] animate-pulse rounded-full" />
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        className="relative z-10"
-      >
-        <Loader2 className="w-16 h-16 text-primary" />
-      </motion.div>
+// High-performance loading fallback — KUBOYAKO logo fills with color as progress grows
+const LoadingFallback = () => {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setProgress((p) => (p >= 100 ? 100 : Math.min(100, p + 2)));
+    }, 40);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#02050A] text-primary overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent opacity-50" />
+      <div className="relative w-[220px] h-[220px] flex items-center justify-center">
+        <div
+          className="absolute inset-0 rounded-full bg-primary/20 blur-[80px] transition-opacity duration-300"
+          style={{ opacity: progress / 100 }}
+        />
+        {/* Grayscale base */}
+        <img
+          src={loaderLogo}
+          alt="KUBOYAKO"
+          className="absolute inset-0 w-full h-full object-contain"
+          style={{ filter: "grayscale(1) brightness(0.45) contrast(1.1) invert(0.85)" }}
+        />
+        {/* Colored overlay revealed by progress (bottom → top) */}
+        <img
+          src={loaderLogo}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-contain transition-[clip-path] duration-150 ease-out"
+          style={{
+            clipPath: `inset(${100 - progress}% 0 0 0)`,
+            filter:
+              "invert(56%) sepia(89%) saturate(1850%) hue-rotate(360deg) brightness(101%) contrast(101%) drop-shadow(0 0 18px hsl(var(--primary)/0.55))",
+          }}
+        />
+      </div>
+      <div className="mt-8 flex flex-col items-center gap-2 relative z-10">
+        <p className="eyebrow tracking-[0.4em] text-primary/80">MEMUAT KUBOYAKO</p>
+        <div className="w-48 h-[3px] rounded-full bg-white/10 overflow-hidden">
+          <div
+            className="h-full bg-primary transition-[width] duration-150 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">
+          {Math.round(progress)}% — Sistem Sedang Dipersiapkan
+        </p>
+      </div>
     </div>
-    <div className="mt-8 flex flex-col items-center gap-2 relative z-10">
-      <p className="eyebrow animate-pulse tracking-[0.4em] text-primary/80">OPTIMIZING KUBOYAKO</p>
-      <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-      <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">Sistem Sedang Dipersiapkan...</p>
-    </div>
-  </div>
-);
+  );
+};
 
 // Opening Video Component
 function OpeningVideo({ onComplete }: { onComplete: () => void }) {
