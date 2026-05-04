@@ -275,7 +275,7 @@ export default function AdminRiwayat() {
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2.5rem] p-8 border border-white/10 shadow-2xl relative"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-white/10 shadow-2xl relative"
             >
               <button
                 onClick={() => setEditingItem(null)}
@@ -364,7 +364,7 @@ export default function AdminRiwayat() {
               initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-[2.5rem] p-8 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] text-center"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] text-center"
             >
               <div className="w-20 h-20 rounded-[2rem] bg-destructive/10 flex items-center justify-center text-destructive mx-auto mb-6">
                 <Trash2 className="w-10 h-10" />
