@@ -150,6 +150,7 @@ export const useLiveEditStore = create<LiveEditState>()(
       name: "kuboyako-live-edit-storage",
       partialize: (state) => ({
         isEditMode: state.isEditMode,
+        unlocked: state.unlocked,
         texts: state.texts,
         images: state.images,
         transforms: state.transforms,
