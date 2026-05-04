@@ -14,16 +14,248 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      evidence: {
+        Row: {
+          asal_lp: string | null
+          created_at: string
+          created_by: string | null
+          foto: string | null
+          id: string
+          imei1: string | null
+          imei2: string | null
+          jenis: string | null
+          lokasi_tkp: string | null
+          merk: string | null
+          model: string | null
+          no_lp: string
+          no_mesin: string | null
+          no_polisi: string | null
+          no_rangka: string | null
+          pelapor: string | null
+          satker: string | null
+          status: Database["public"]["Enums"]["case_status"]
+          status_note: string | null
+          tahun: string | null
+          tgl_lp: string | null
+          tipe: string | null
+          type: Database["public"]["Enums"]["evidence_type"]
+          updated_at: string
+          warna: string | null
+        }
+        Insert: {
+          asal_lp?: string | null
+          created_at?: string
+          created_by?: string | null
+          foto?: string | null
+          id?: string
+          imei1?: string | null
+          imei2?: string | null
+          jenis?: string | null
+          lokasi_tkp?: string | null
+          merk?: string | null
+          model?: string | null
+          no_lp: string
+          no_mesin?: string | null
+          no_polisi?: string | null
+          no_rangka?: string | null
+          pelapor?: string | null
+          satker?: string | null
+          status?: Database["public"]["Enums"]["case_status"]
+          status_note?: string | null
+          tahun?: string | null
+          tgl_lp?: string | null
+          tipe?: string | null
+          type: Database["public"]["Enums"]["evidence_type"]
+          updated_at?: string
+          warna?: string | null
+        }
+        Update: {
+          asal_lp?: string | null
+          created_at?: string
+          created_by?: string | null
+          foto?: string | null
+          id?: string
+          imei1?: string | null
+          imei2?: string | null
+          jenis?: string | null
+          lokasi_tkp?: string | null
+          merk?: string | null
+          model?: string | null
+          no_lp?: string
+          no_mesin?: string | null
+          no_polisi?: string | null
+          no_rangka?: string | null
+          pelapor?: string | null
+          satker?: string | null
+          status?: Database["public"]["Enums"]["case_status"]
+          status_note?: string | null
+          tahun?: string | null
+          tgl_lp?: string | null
+          tipe?: string | null
+          type?: Database["public"]["Enums"]["evidence_type"]
+          updated_at?: string
+          warna?: string | null
+        }
+        Relationships: []
+      }
+      live_edit_state: {
+        Row: {
+          id: string
+          images: Json
+          scope: string
+          texts: Json
+          transforms: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          images?: Json
+          scope?: string
+          texts?: Json
+          transforms?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          images?: Json
+          scope?: string
+          texts?: Json
+          transforms?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          name: string | null
+          nrp: string | null
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          nrp?: string | null
+          unit?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          nrp?: string | null
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      system_logs: {
+        Row: {
+          action: string
+          created_at: string
+          details: string | null
+          id: string
+          user_id: string | null
+          user_name: string | null
+          user_role: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: string | null
+          id?: string
+          user_id?: string | null
+          user_name?: string | null
+          user_role?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: string | null
+          id?: string
+          user_id?: string | null
+          user_name?: string | null
+          user_role?: string | null
+        }
+        Relationships: []
+      }
+      user_locations: {
+        Row: {
+          accuracy: number | null
+          id: string
+          latitude: number
+          longitude: number
+          recorded_at: string
+          user_id: string
+        }
+        Insert: {
+          accuracy?: number | null
+          id?: string
+          latitude: number
+          longitude: number
+          recorded_at?: string
+          user_id: string
+        }
+        Update: {
+          accuracy?: number | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          recorded_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "polri" | "publik"
+      case_status: "baru" | "proses" | "selesai"
+      evidence_type: "mobil" | "motor" | "hp"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +382,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "polri", "publik"],
+      case_status: ["baru", "proses", "selesai"],
+      evidence_type: ["mobil", "motor", "hp"],
+    },
   },
 } as const
