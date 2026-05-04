@@ -781,7 +781,7 @@ export default function Presentasi() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="absolute inset-0 z-50 flex items-center justify-center p-12 bg-black/40 backdrop-blur-sm"
                   >
-                    <div className="w-full max-w-md surface-elevated rounded-[3rem] p-10 border border-white/10 shadow-2xl">
+                    <div className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[3rem] p-10 border border-white/10 shadow-2xl">
                       <div className="flex items-center gap-4 mb-8">
                         <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary">
                           <Search className="w-6 h-6" />
@@ -1321,7 +1321,7 @@ export default function Presentasi() {
                   initial={{ scale: 0.9, y: 20 }}
                   animate={{ scale: 1, y: 0 }}
                   exit={{ scale: 0.9, y: 20 }}
-                  className="w-full max-w-xl surface-elevated rounded-[3.5rem] p-12 border border-white/10 shadow-2xl"
+                  className="w-full max-w-xl lg:max-w-3xl surface-elevated rounded-[3.5rem] p-12 border border-white/10 shadow-2xl"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-center justify-between mb-12">
@@ -1394,7 +1394,7 @@ export default function Presentasi() {
                   initial={{ scale: 0.9, y: 20 }}
                   animate={{ scale: 1, y: 0 }}
                   exit={{ scale: 0.9, y: 20 }}
-                  className="w-full max-w-md surface-elevated rounded-[2.5rem] p-10 border border-white/10 shadow-2xl"
+                  className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2.5rem] p-10 border border-white/10 shadow-2xl"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-center justify-between mb-8">

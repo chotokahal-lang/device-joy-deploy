@@ -114,7 +114,7 @@ export default function UserHasil() {
               key="safe"
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-sm surface-elevated rounded-3xl p-8 text-center"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-xl surface-elevated rounded-3xl p-8 text-center"
             >
               <div className="relative mx-auto mb-8 w-24 h-24">
                 <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
@@ -142,7 +142,7 @@ export default function UserHasil() {
               key="danger"
               initial={{ scale: 1.05, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-md surface-elevated rounded-[2.5rem] overflow-hidden border border-destructive/20 shadow-[0_0_80px_rgba(239,68,68,0.1)]"
+              className="w-full max-w-md sm:max-w-lg lg:max-w-2xl surface-elevated rounded-[2.5rem] overflow-hidden border border-destructive/20 shadow-[0_0_80px_rgba(239,68,68,0.1)]"
             >
               <div className="bg-destructive/10 p-8 text-center border-b border-white/5 relative">
                 <div className="absolute inset-0 bg-destructive/5 blur-3xl pointer-events-none" />
