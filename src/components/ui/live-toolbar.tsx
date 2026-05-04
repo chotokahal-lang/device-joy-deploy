@@ -217,13 +217,14 @@ export function LiveToolbar() {
               <div className="p-8 min-h-[12rem] max-h-[60vh] overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
                 {isImage ? (
                   <div className="flex flex-col items-center justify-center gap-6 py-10">
-                     <div className="w-48 h-48 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
+                     <div className="w-48 h-48 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group bg-black/30 flex items-center justify-center">
                         <img 
                           src={useLiveEditStore.getState().images[activeElementId!] || document.getElementById(activeElementId!)?.getAttribute("src") || document.getElementById(activeElementId!)?.querySelector("img")?.getAttribute("src") || ""} 
-                          className="w-full h-full object-cover"
+                          className="max-w-full max-h-full object-contain transition-transform"
+                          style={{ transform: `scale(${scales[activeElementId!] ?? 1}) rotate(${rotations[activeElementId!] ?? 0}deg)` }}
                           alt="Edit"
                         />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                            <ImagePlus className="w-8 h-8 text-white" />
                         </div>
                      </div>
