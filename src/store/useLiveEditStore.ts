@@ -17,9 +17,11 @@ interface Snapshot {
 
 interface LiveEditState extends Snapshot {
   isEditMode: boolean;
+  unlocked: boolean;
   activeElementId: string | null;
   past: Snapshot[];
   future: Snapshot[];
+  setUnlocked: (v: boolean) => void;
   setEditMode: (mode: boolean) => void;
   toggleEditMode: () => void;
   setText: (id: string, value: string) => void;
