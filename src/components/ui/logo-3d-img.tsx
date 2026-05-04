@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { ImagePlus } from "lucide-react";
 import { LiveText } from "@/components/ui/live-text";
+import resmobLogo from "@/assets/resmob-logo.png";
 
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "hero";
 type Intensity = "low" | "normal" | "high";
