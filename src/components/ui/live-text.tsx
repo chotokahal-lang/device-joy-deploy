@@ -46,7 +46,11 @@ export const LiveText = React.forwardRef<HTMLElement, LiveTextProps>(
       if (isEditMode) {
         e.preventDefault();
         e.stopPropagation();
-        beginEditElement(id);
+        if (e.shiftKey) {
+          useLiveEditStore.getState().toggleSelect(id);
+        } else {
+          beginEditElement(id);
+        }
       }
     };
 
