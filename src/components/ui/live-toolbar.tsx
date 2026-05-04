@@ -7,7 +7,7 @@ import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveToolbar() {
-  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future } = useLiveEditStore();
+  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, transforms, setScale, setRotation, resetElement, undo, redo, past, future, selectedIds, clearSelection, patchTransform, commit } = useLiveEditStore();
   const scales = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.scale ?? 1])), [transforms]);
   const rotations = React.useMemo(() => Object.fromEntries(Object.entries(transforms).map(([k, v]) => [k, v.rotation ?? 0])), [transforms]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -15,8 +15,9 @@ export function LiveToolbar() {
   /** Draft lokal = tidak memaksa re-render dari store tiap ketukan → kursor stabil & mirror realtime ke store */
   const [draftHtml, setDraftHtml] = React.useState("");
 
-  // 1. Declare derived state first
-  const isVisible = !!(isEditMode && activeElementId);
+  // 1. Derived state — hide editor modal during multi-select
+  const isMulti = selectedIds.length > 1;
+  const isVisible = !!(isEditMode && activeElementId && !isMulti);
   
   // Safe check for image type
   const getIsImage = () => {
