@@ -16,12 +16,12 @@ interface Logo3DImgProps {
 
 /* px dimensions used as inline style so glow is always centered */
 const imgPx: Record<Size, number> = {
-  xs: 80,
-  sm: 128,
-  md: 180,
-  lg: 240,
-  xl: 300,
-  hero: 460,
+  xs: 110,
+  sm: 170,
+  md: 240,
+  lg: 320,
+  xl: 400,
+  hero: 600,
 };
 
 const glowScale: Record<Size, number> = {
@@ -144,30 +144,7 @@ export function Logo3DImg({
 
   return (
     <div className={`inline-flex flex-col items-center gap-2 ${className}`}>
-      {/* Top institutional label — sized to logo */}
-      <motion.div
-        initial={{ opacity: 0, y: -4 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.5 }}
-        className={`flex flex-col items-center select-none ${isEditMode ? "" : "pointer-events-none"}`}
-        style={{ width: topLabelWidth }}
-      >
-        <p
-          className="m-0 text-center"
-          style={{ fontSize: topLabelFontPx, letterSpacing: topLabelTracking, lineHeight: 1.1 }}
-        >
-          <LiveText
-            as="span"
-            id="logo-top-title"
-            defaultText="RESMOB POLDA SULSEL"
-            className="font-black uppercase text-foreground whitespace-nowrap drop-shadow-[0_2px_8px_rgba(249,115,22,0.35)]"
-          />
-        </p>
-        <div
-          className="rounded-full bg-primary/60 mt-1.5"
-          style={{ width: Math.min(px * 0.55, 64), height: 2 }}
-        />
-      </motion.div>
+      {/* Top institutional label removed — now part of logo image */}
       {/* Image wrapper — relative container so glows center on the image */}
       <div className="relative flex items-center justify-center" style={containerStyle}>
         {/* Outer ambient glow */}
