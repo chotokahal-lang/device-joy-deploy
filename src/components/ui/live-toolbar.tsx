@@ -178,25 +178,40 @@ export function LiveToolbar() {
                    </div>
                 </div>
 
-                <div className="flex items-center gap-1 p-1 surface-glass rounded-2xl border border-white/5">
-                  <ToolBtn onClick={() => handleCommand("bold")} title="Bold"><Bold className="w-4 h-4" /></ToolBtn>
-                  <ToolBtn onClick={() => handleCommand("italic")} title="Italic"><Italic className="w-4 h-4" /></ToolBtn>
-                  <ToolBtn onClick={() => handleCommand("underline")} title="Underline"><Underline className="w-4 h-4" /></ToolBtn>
-                  <div className="w-px h-5 bg-white/10 mx-1" />
-                  <ToolBtn onClick={() => handleCommand("fontSize", "5")} title="Bigger"><AArrowUp className="w-4 h-4" /></ToolBtn>
-                  <ToolBtn onClick={() => handleCommand("fontSize", "2")} title="Smaller"><AArrowDown className="w-4 h-4" /></ToolBtn>
-                  <div className="w-px h-5 bg-white/10 mx-1" />
-                  <div className="flex items-center gap-1 px-1">
-                    {colors.map((c) => (
-                      <button
-                        key={c}
-                        onMouseDown={(e) => { e.preventDefault(); handleCommand("foreColor", c); }}
-                        className="live-toolbar-btn w-6 h-6 rounded-full border border-white/10 hover:scale-110 transition-transform"
-                        style={{ backgroundColor: c }}
-                      />
-                    ))}
+                {!isImage && (
+                  <div className="flex items-center gap-1 p-1 surface-glass rounded-2xl border border-white/5 flex-wrap">
+                    <ToolBtn onClick={() => handleCommand("bold")} title="Bold"><Bold className="w-4 h-4" /></ToolBtn>
+                    <ToolBtn onClick={() => handleCommand("italic")} title="Italic"><Italic className="w-4 h-4" /></ToolBtn>
+                    <ToolBtn onClick={() => handleCommand("underline")} title="Underline"><Underline className="w-4 h-4" /></ToolBtn>
+                    <div className="w-px h-5 bg-white/10 mx-1" />
+                    <ToolBtn onClick={() => handleCommand("fontSize", "5")} title="Bigger"><AArrowUp className="w-4 h-4" /></ToolBtn>
+                    <ToolBtn onClick={() => handleCommand("fontSize", "2")} title="Smaller"><AArrowDown className="w-4 h-4" /></ToolBtn>
+                    <div className="w-px h-5 bg-white/10 mx-1" />
+                    <ToolBtn onClick={() => handleCommand("justifyLeft")} title="Left"><AlignLeft className="w-4 h-4" /></ToolBtn>
+                    <ToolBtn onClick={() => handleCommand("justifyCenter")} title="Center"><AlignCenter className="w-4 h-4" /></ToolBtn>
+                    <ToolBtn onClick={() => handleCommand("justifyRight")} title="Right"><AlignRight className="w-4 h-4" /></ToolBtn>
+                    <div className="w-px h-5 bg-white/10 mx-1" />
+                    <div className="flex items-center gap-1 px-1">
+                      {colors.map((c) => (
+                        <button
+                          key={c}
+                          onMouseDown={(e) => { e.preventDefault(); handleCommand("foreColor", c); }}
+                          className="live-toolbar-btn w-6 h-6 rounded-full border border-white/10 hover:scale-110 transition-transform"
+                          style={{ backgroundColor: c }}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
+                {isImage && activeElementId && (
+                  <ImageControls
+                    scale={scales[activeElementId] ?? 1}
+                    rotation={rotations[activeElementId] ?? 0}
+                    onScale={(v) => setScale(activeElementId, v)}
+                    onRotate={(v) => setRotation(activeElementId, v)}
+                    onReset={() => resetElement(activeElementId)}
+                  />
+                )}
               </div>
 
               <div className="p-8 min-h-[12rem] max-h-[60vh] overflow-y-auto custom-scrollbar live-toolbar-editor-scroll">
