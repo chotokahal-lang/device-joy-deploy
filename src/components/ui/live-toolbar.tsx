@@ -2,12 +2,12 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
-import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type } from "lucide-react";
+import { Bold, Italic, Underline, AArrowUp, AArrowDown, ImagePlus, Check, X, Type, ZoomIn, ZoomOut, RotateCw, RotateCcw, RefreshCw, AlignLeft, AlignCenter, AlignRight } from "lucide-react";
 import { useLiveEditStore } from "@/store/useLiveEditStore";
 import { LiveText } from "@/components/ui/live-text";
 
 export function LiveToolbar() {
-  const { isEditMode, activeElementId, setActiveElementId, setImage, setText } = useLiveEditStore();
+  const { isEditMode, activeElementId, setActiveElementId, setImage, setText, scales, rotations, setScale, setRotation, resetElement } = useLiveEditStore();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const { pathname } = useLocation();
   /** Draft lokal = tidak memaksa re-render dari store tiap ketukan → kursor stabil & mirror realtime ke store */
