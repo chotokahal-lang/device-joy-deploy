@@ -10,7 +10,7 @@ interface LiveImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: LiveImageProps) {
-  const { isEditMode, images, transforms, setImage, patchTransform, commit, activeElementId, setActiveElementId } = useLiveEditStore();
+  const { isEditMode, images, transforms, setImage, patchTransform, patchTransformMany, commit, activeElementId, setActiveElementId, toggleSelect, selectedIds } = useLiveEditStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentSrc = images[id] || defaultSrc;
@@ -21,6 +21,7 @@ export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: L
   const offsetY = t.offsetY ?? 0;
   const widthOverride = t.width;
 
+  const isSelected = isEditMode && selectedIds.includes(id);
   const isActive = isEditMode && activeElementId === id;
   const hasActiveElement = isEditMode && activeElementId !== null;
 
@@ -32,13 +33,23 @@ export function LiveImage({ id, defaultSrc, className, alt, style, ...props }: L
     e.stopPropagation();
     const startX = e.clientX;
     const startY = e.clientY;
-    const baseX = offsetX;
-    const baseY = offsetY;
+    const ids = selectedIds.length > 1 ? selectedIds : [id];
+    const baseMap: Record<string, { x: number; y: number }> = {};
+    const allTransforms = useLiveEditStore.getState().transforms;
+    ids.forEach((eid) => {
+      const tr = allTransforms[eid] ?? {};
+      baseMap[eid] = { x: tr.offsetX ?? 0, y: tr.offsetY ?? 0 };
+    });
     setDragging(true);
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
 
     const move = (ev: PointerEvent) => {
-      patchTransform(id, { offsetX: baseX + (ev.clientX - startX), offsetY: baseY + (ev.clientY - startY) }, false);
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      ids.forEach((eid) => {
+        const b = baseMap[eid];
+        patchTransform(eid, { offsetX: b.x + dx, offsetY: b.y + dy }, false);
+      });
     };
     const up = () => {
       window.removeEventListener("pointermove", move);
