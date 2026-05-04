@@ -170,7 +170,7 @@ export function LiveToolbar() {
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
               className="live-toolbar-panel relative z-[10002] w-full max-w-xl surface-elevated rounded-3xl sm:rounded-[2.5rem] border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.8)] overflow-hidden pointer-events-auto max-h-[90vh] flex flex-col"
             >
-              <div className="p-4 border-b border-white/5 bg-white/[0.02] flex flex-col gap-4">
+              <div className="p-3 sm:p-4 border-b border-white/5 bg-white/[0.02] flex flex-col gap-3 sm:gap-4">
                 <div className="flex items-center justify-between px-2">
                    <div className="flex items-center gap-2 text-primary">
                       <Type className="w-4 h-4" />
