@@ -223,7 +223,7 @@ export const useLiveEditStore = create<LiveEditState>()(
             const { texts, images, transforms } = get();
             await supabase
               .from("live_edit_state")
-              .update({ texts, images, transforms, updated_by: auth.user?.id ?? null })
+              .update({ texts: texts as any, images: images as any, transforms: transforms as any, updated_by: auth.user?.id ?? null })
               .eq("scope", "global");
           } catch (err) {
             console.warn("[live-edit] push failed", err);
